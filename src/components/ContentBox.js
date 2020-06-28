@@ -7,7 +7,7 @@ class ContentBox extends React.Component {
   render() {
     let classNameInner = 'main-inner main-inner-square';
     return (
-      <div className={"main-inner-wrapper " + this.props.name } onClick={this.redirect.bind(this)}>
+      <div className={"main-inner-wrapper " + this.props.name + ' ' + this.props.disabled } onClick={this.redirect.bind(this)}>
         <div className={classNameInner}>
           { this.props.content }
         </div>

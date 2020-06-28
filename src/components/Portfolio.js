@@ -8,24 +8,30 @@ class Portfolio extends React.Component {
     return (
       <Container>
         <div className="portfolio-wrapper">
-          <Title title={'Portfolio'} hoverContent={'A selection of work I have done in my free time to showcase my full stack web development abilties.'}/>
+          <Title title={'Portfolio (this page is under construction)'} hoverContent={'A selection of work I have done in my free time to showcase my full stack web development abilties.'}/>
           <Row>
             <Col>
-              <ContentBox changeContent={this.props.changeContent}
+              <ContentBox
+                disabled={''}
+                changeContent={this.props.changeContent}
                 number={'square'}
                 redirectVal={'mockupspage'}
                 content={'App Design Mockups'}
                 name={'mockupspage'}/>
             </Col>
             <Col>
-              <ContentBox changeContent={this.props.changeContent}
+              <ContentBox
+                disabled={''}
+                changeContent={this.props.changeContent}
                 number={'square'}
                 redirectVal={'databasepage'}
                 content={'Database Design'}
                 name={'databasepage'}/>
             </Col>
             <Col>
-              <ContentBox changeContent={this.props.changeContent}
+              <ContentBox
+                disabled={''}
+                changeContent={this.props.changeContent}
                 number={'square'}
                 redirectVal={'artpage'}
                 content={'Graphics Design and Art'}
@@ -35,16 +41,25 @@ class Portfolio extends React.Component {
           <Row>
             <Col>
             <ContentBox changeContent={this.props.changeContent}
+              disabled={' '}
               number={'square'}
               redirectVal={'chartpage'}
               content={'Charting Libraries'}
               name={'chartpage'}/>
             </Col>
             <Col>
-              <ContentBox number={'square'} content={'content'}/>
+              <ContentBox
+                disabled={' disabled-box'}
+                number={'square'}
+                redirectVal={'portfolio'}
+                content={''}/>
             </Col>
             <Col>
-              <ContentBox number={'square'} content={'content'}/>
+              <ContentBox
+                disabled={' disabled-box'}
+                number={'square'}
+                redirectVal={'portfolio'}
+                content={''}/>
             </Col>
           </Row>
       </div>

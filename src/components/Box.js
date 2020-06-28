@@ -13,7 +13,7 @@ class Box extends React.Component {
     if (this.props.accent) {
       accent = 'accent';
     }
-    let classNameInner = 'main-inner main-inner-' + this.props.number + " " ;
+    let classNameInner = 'main-inner ' + this.props.identifier + " " ;
     classNameInner += this.props.highlighted + " " + accent;
 
     return (

@@ -1,75 +1,104 @@
 import React from 'react';
-import { Container, Col, Row } from 'reactstrap';
-import Box from './Box';
+import { Container, Row } from 'reactstrap';
 import LinkBox from './LinkBox';
+import MainColumn from './MainColumn';
+import Box from './Box';
 
 class Main extends React.Component {
-  render() {
+  constructor(props) {
+    super(props);
 
-    // <div className="about-me">
-    //   <span className='main-section-title'>About Me</span>
-    //   <div>
-    //   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-    //   </div>
-    // </div>
-    // <div className="projects">
-    //   <span className='main-section-title'>Projects</span>
-    //   <div>
-    //   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-    //   </div>
-    // </div>
-    const aboutContent = <LinkBox name='About' />
-    const resumeContent = <LinkBox name='Resume' />
-    const portfolioContent = <LinkBox name='Portfolio' />
-    const contactContent = <LinkBox name='Contact' />
+    this.state = {
+      body: '',
+    };
+  }
+
+  componentWillMount() {
+    this.resizeHandler();
+  }
+
+  resizeHandler() {
+    const aboutContent = <LinkBox name='About' />;
+    const resumeContent = <LinkBox name='Resume' />;
+    const portfolioContent = <LinkBox name='Portfolio' />;
+    const contactContent = <LinkBox name='Contact' />;
+    let body = '';
+    let viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    if (viewportWidth > 520) {
+      body = (
+        <Row>
+          <MainColumn
+            changeContent={this.props.changeContent}
+            box1={40}
+            box2={60}
+            box3={20}
+            highlightedNumber={1}
+            title={'about'}
+            content={aboutContent}
+          />
+          <MainColumn
+            changeContent={this.props.changeContent}
+            box1={60}
+            box2={20}
+            box3={40}
+            highlightedNumber={2}
+            title={'resume'}
+            content={resumeContent}
+          />
+          <MainColumn
+            changeContent={this.props.changeContent}
+            box1={40}
+            box2={20}
+            box3={60}
+            highlightedNumber={3}
+            title={'portfolio'}
+            content={portfolioContent}
+          />
+          <MainColumn
+            changeContent={this.props.changeContent}
+            box1={60}
+            box2={40}
+            box3={20}
+            highlightedNumber={4}
+            title={'contact'}
+            content={contactContent}
+          />
+        </Row>
+      )
+    } else {
+      body = (
+        <Row>
+          <Box identifier={'small-box-view'} type={''}
+            highlighted={'highlight1'}
+            changeContent={this.props.changeContent}
+            value={'about'}
+            content={aboutContent}/>
+          <Box identifier={'small-box-view'} type={''}
+            highlighted={'highlight2'}
+            changeContent={this.props.changeContent}
+            value={'resume'}
+            content={resumeContent}/>
+          <Box identifier={'small-box-view'} type={''}
+            highlighted={'highlight3'}
+            changeContent={this.props.changeContent}
+            value={'portfolio'}
+            content={portfolioContent}/>
+          <Box identifier={'small-box-view'} type={''}
+            highlighted={'highlight4'}
+            changeContent={this.props.changeContent}
+            value={'contact'}
+            content={contactContent}/>
+        </Row>
+      );
+    }
+    this.setState({ body });
+  }
+
+  render() {
+    // window.addEventListener('resize', this.resizeHandler);
     return (
       <Container>
-        <Row>
-          <Col>
-            <div className="main-outer" >
-              <Box number={40} type={''} highlighted={''} content={''}/>
-              <Box number={60} type={''}
-                highlighted={'highlighted1'}
-                changeContent={this.props.changeContent}
-                value={'about'}
-                content={aboutContent}/>
-              <Box number={20} type={''} highlighted={''} accent={true} content={''}/>
-            </div>
-          </Col>
-          <Col>
-            <div className="main-outer" >
-            <Box number={60} type={''} highlighted={''} accent={true} content={''}/>
-            <Box number={20} type={''}
-              highlighted={'highlighted2'}
-              changeContent={this.props.changeContent}
-              value={'resume'}
-              content={resumeContent}/>
-            <Box number={40} type={''} highlighted={''} content={''}/>
-            </div>
-          </Col>
-          <Col>
-            <div className="main-outer" >
-            <Box number={40} type={''} highlighted={''} content={''}/>
-            <Box number={20} type={''}
-              highlighted={'highlighted3'}
-              changeContent={this.props.changeContent}
-              value={'portfolio'}
-              content={portfolioContent}/>
-            <Box number={60} type={''} highlighted={''} accent={true} content={''}/>
-            </div>
-          </Col>
-          <Col>
-            <div className="main-outer" >
-            <Box number={60} type={''} highlighted={''} accent={true} content={''}/>
-            <Box number={40} type={''}
-              highlighted={'highlighted4'}
-              changeContent={this.props.changeContent}
-              value={'contact'}
-              content={contactContent}/>
-            <Box number={20} type={''} highlighted={''} content={''}/>
-            </div>
-          </Col>
-        </Row>
+        { this.state.body }
       </Container>
     );
   }

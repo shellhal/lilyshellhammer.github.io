@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Badge } from 'reactstrap';
 import Title from './Title';
 import '../../node_modules/react-vis/dist/style.css';
 import {
@@ -39,11 +39,12 @@ class ChartPage extends React.Component {
   render() {
     return (
       <Container>
-      <button onClick={ this.randomData.bind(this) }>New Random Data</button>
-        <div className="portfolio-wrapper">
+      <div className="portfolio-wrapper">
           <Title title={'Charting Library Examples'} hoverContent={''}/>
           <Col>
             <Row>
+            <h6><Badge onClick={ this.randomData.bind(this) }>New Random Data</Badge></h6>
+
               <div className="react-vis-chart-example1">
                 <XYPlot
                   width={600}
