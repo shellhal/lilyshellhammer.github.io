@@ -9,5 +9,203 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+}
+
+
+.header {
+  margin: 1vh 3vh 0 0 0;
+  color: #000000;
+  text-align: left;
+  font-size: 20px;
+}
+
+.header-links {
+ color: #000000;
+ text-align: right;
+}
+
+@media screen and (max-width: 500px) {
+  /* .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  } */
+}
+
+main {
+  padding: 0;
+}
+
+.column:hover {
+    width: 100vh;
+}
+
+.main-outer {
+  padding: 15px 0px 0px 0px;
+  background-color: white;
+}
+.main-inner {
+  margin: auto;
+  background-color: #ccc9d6;
+  width: 100%;
+  padding: 24px;
+  font-size: 20px;
+}
+.react-vis-chart-example1 {
+  background-color: white;
+  margin:auto;
+}
+.accent {
+  background-color: #ccc9d6;
+}
+
+.main-inner-40 {
+  height: 22vh;
+}
+.main-inner-60 {
+  height: 27vh;
+}
+.main-inner-20 {
+  height: 37vh;
+}
+
+.main-inner-square {
+  height: 20vw;
+  width: 20vw;
+}
+.main-inner-square:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.2s ease-in-out;
+  height: 20vw;
+  width: 20vw;
+}
+
+.my-face {
+  background-image: url(./img/my_face.png);
+  background-size: cover;
+  width: 50px;
+}
+
+.main-inner-wrapper {
+  padding: 1.5vh;
+  width: 100%;
+}
+
+.background1 {
+  margin: auto;
+  width: 85vw;
+  height: 80vh;
+  margin-top: 5vh;
+  padding: 5vh 5vw;
+  background-image: url(./img/deathvalley.jpg);
+  background-size: cover;
+}
+
+.background2 {
+  margin: auto;
+  width: 85vw;
+  height: 80vh;
+  margin-top: 5vh;
+  padding: 5vh 5vw;
+  background-image: url(./img/purplepink.jpg);
+  background-size: cover;
+}
+
+.background3 {
+  margin: auto;
+  width: 85vw;
+  height: 80vh;
+  margin-top: 5vh;
+  padding: 5vh 5vw;
+  background-image: url(./img/phonelines.jpg);
+  background-size: cover;
+}
+
+.background4 {
+  margin: auto;
+  width: 85vw;
+  height: 80vh;
+  margin-top: 5vh;
+  padding: 5vh 5vw;
+  background-image: url(./img/whispy.jpg);
+  background-size: cover;
+}
+
+.white-box-backround {
+  width: 70vw;
+  height: 70vh;
+  background-color: white;
+}
+
+.highlighted1 {
+  color: white;
+  background-image: url(./img/deathvalley.jpg);
+  /* background-image: url(./img/whispy.jpg); */
+  background-size: cover;
+}
+.highlighted2 {
+  color: white;
+  background-image: url(./img/purplepink.jpg);
+  background-size: cover;
+}
+.highlighted3 {
+  color: white;
+  background-image: url(./img/phonelines.jpg);
+  background-size: cover;
+}
+.highlighted4 {
+  color: white;
+  /* background-image: url(./img/deathvalley.jpg); */
+  background-image: url(./img/whispy.jpg);
+  background-size: cover;
+}
+
+.highlighted:hover {
+  background-color: #ffffff;
+  color: black;
+}
+
+.portfolio-wrapper {
+  padding: 5vh 0;
+}
+.title-row {
+  margin-bottom: 2vh;
+}
+
+.title-subheader {
+  font-size: 15px;
+}
+
+.image-mockups-carousel {
+  max-width: 300px;
+}
+.image-mockups-carousel-wrapper {
+  margin: 20px;
+  text-align: center;
+}
+
+.image-mockups-carousel-caption {
+  margin: auto;
+  display: inline-block;
+  padding: 20px;
+  /* background-color:#C8ABC9; */
+}
+
+.prev-next-carousel {
+  background: white;
+  border: none;
+  outline: none;
+  font-size: 25px;
+  color: black;
+}
+
+.center {
+  margin:auto;
+}
+
+.my-face {
+  max-width: 200px;
 }
