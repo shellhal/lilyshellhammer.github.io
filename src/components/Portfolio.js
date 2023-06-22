@@ -15,18 +15,18 @@ class Portfolio extends React.Component {
                 disabled={''}
                 changeContent={this.props.changeContent}
                 number={'square'}
-                redirectVal={'mockupspage'}
-                content={'App Design Mockups'}
-                name={'mockupspage'}/>
+                redirectVal={'portfolio'}
+                content={''}
+                name={''}/>
             </Col>
             <Col>
               <ContentBox
                 disabled={''}
                 changeContent={this.props.changeContent}
                 number={'square'}
-                redirectVal={'databasepage'}
-                content={'Database Design'}
-                name={'databasepage'}/>
+                redirectVal={'publicationsPage'}
+                content={'Publications'}
+                name={'publicationsPage'}/>
             </Col>
             <Col>
               <ContentBox

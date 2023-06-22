@@ -1,24 +1,25 @@
 import React from 'react';
 import {
-  Row,
-  Col,
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
+  NavItem,
 } from 'reactstrap';
 
+  // Row,
+  // Col,
+  // UncontrolledDropdown,
+  // DropdownToggle,
+  // DropdownMenu,
+  // DropdownItem,
+  // NavbarText,
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 // import { faHome } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import linkedIn from '../img/linkedin-icon.png'
 
 class Header extends React.Component {
   constructor(props) {
@@ -29,12 +30,6 @@ class Header extends React.Component {
       isOpen: false,
       setIsOpen: false,
     };
-    this.redirectResume = this.redirectResume.bind(this);
-    this.redirectProjects = this.redirectProjects.bind(this);
-    this.redirectContact = this.redirectContact.bind(this);
-    this.redirectMain = this.redirectMain.bind(this);
-    this.redirectAbout = this.redirectAbout.bind(this);
-    // this.resizeHandler = this.resizeHandler.bind(this);
 
   }
   redirectResume() {
@@ -51,6 +46,9 @@ class Header extends React.Component {
   }
   redirectAbout() {
     this.props.changeContent('about');
+  }
+  redirectLinkedin() {
+    window.location = 'https://www.linkedin.com/in/lily-shellhammer/';
   }
 
   toggle() {
@@ -125,19 +123,16 @@ class Header extends React.Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink onClick={ this.redirectAbout }>About</NavLink>
+            <NavLink onClick={ this.redirectAbout.bind(this) }>Home</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={ this.redirectResume }>Resume</NavLink>
+            <NavLink onClick={ this.redirectResume.bind(this) }>Resume</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={ this.redirectProjects }>Portfolio</NavLink>
+            <NavLink onClick={ this.redirectContact.bind(this) }>Contact</NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink onClick={ this.redirectContact }>Contact</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink onClick={ this.redirectMain }>Main</NavLink>
+           <NavItem>
+            <NavLink href="https://www.linkedin.com/in/lily-shellhammer/" target="_blank" ><img src={linkedIn} alt={''} className="linkedin"/></NavLink>
           </NavItem>
           </Nav>
         </Collapse>
@@ -147,4 +142,7 @@ class Header extends React.Component {
   }
 }
 
+// <NavItem>
+//     <NavLink onClick={ this.redirectProjects }>Portfolio</NavLink>
+//   </NavItem>
 export default Header;

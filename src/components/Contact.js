@@ -29,7 +29,7 @@ class Contact extends React.Component {
     this.setState({ github: 'GitHub' })
   }
   linkedinEnter() {
-    this.setState({ linkedin: 'https://www.linkedin.com/in/lily-s-899b43105/' })
+    this.setState({ linkedin: 'https://www.linkedin.com/in/lily-shellhammer/' })
   }
   linkedinLeave() {
     this.setState({ linkedin: 'LinkedIn' })

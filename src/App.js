@@ -7,7 +7,7 @@ import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Portfolio from './components/Portfolio';
 import ArtPage from './components/ArtPage';
-import DatabasePage from './components/DatabasePage';
+import PublicationsPage from './components/PublicationsPage';
 import MockupPage from './components/MockupPage';
 import ChartPage from './components/ChartPage';
 import AboutPage from './components/AboutPage';
@@ -41,9 +41,8 @@ class App extends React.Component {
   }
 
   getBody() {
-    if (this.state.content === 'main') {
-      return <Main changeContent={this.changeContent.bind(this)}/>
-    } else if (this.state.content === 'about') {
+    // return <Main changeContent={this.changeContent.bind(this)}/>
+    if (this.state.content === 'about' || this.state.content === 'main') {
       return <AboutPage />
     } else if (this.state.content === 'resume') {
       return <Resume />
@@ -51,8 +50,8 @@ class App extends React.Component {
       return <Portfolio changeContent={this.changeContent.bind(this)}/>
     } else if (this.state.content === 'artpage') {
       return <ArtPage />
-    } else if (this.state.content === 'databasepage') {
-      return <DatabasePage />
+    } else if (this.state.content === 'publicationsPage') {
+      return <PublicationsPage />
     } else if (this.state.content === 'mockupspage') {
       return <MockupPage />
     } else if (this.state.content === 'chartpage') {

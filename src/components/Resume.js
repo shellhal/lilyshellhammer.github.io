@@ -1,67 +1,108 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 
 import { Container, Col } from 'reactstrap';
 import Title from './Title';
-class Resume extends React.Component {
+
+export default class Resume extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      moreWork: false,
+    }
+  }
+
+  toggleViewMoreWork() {
+    this.setState({ moreWork: !this.state.moreWork });
+  }
+
+  downloadResume() {
+    // do something;
+  }
 
   render() {
+    const viewText = this.state.moreWork ? 'View Less Work' : 'View More Work';
     return (
       <Container>
         <div className="portfolio-wrapper">
           <Title title={'Resume'} hoverContent={''}/>
+          <button className="btn" onClick={this.downloadResume.bind(this)}>Download Resume as PDF</button>
           <Col>
           <h3>Lily Shellhammer</h3>
           <p>Phone: (541)-740-8581 Email: lily.shellhammer@gmail.com</p>
-          <h4>Objectives</h4>
+
+          <h4>Technical Skills</h4>
           <ul>
-            <li>Work in the tech industry __</li>
-            <li>Make software usable ___</li>
+            <li>Javascript, JQuery, Django, Python, React, SQL, Java, Grunt, Git, ElasticSearch, PostGres, SQLAlchemy, Python, Airflow, Bash, Docker, Headless Browsers, Confluence, Web Scrapers, AWS, Jira, HTML, CSS, Bootstrap
+</li>
           </ul>
-          <h4>Education</h4>
-          <p>Oregon State University, Corvallis, Oregon 	</p>
-          <p>B.S. Computer Science, GPA: 3.69</p>
-          <p>Related Courses: Web Development, Introduction to Databases, Software Engineering I and II, Analysis of Algorithms, Operating Systems I and II, Programming Language Fundamentals, Computer Graphics and Graphics Shaders, Linear Algebra, Calculus and Vector Calculus, Usability, Introduction to Networks</p>
           <h4>Experience</h4>
-          <h6>Software Engineer	July 2019 - current</h6>
+          <h5 className="title-role">Senior Software Engineer</h5>
+          <h6>January 2023 - current</h6>
           <p>Marinus Analytics, Pittsburgh, Pennsylvania</p>
           <ul>
-            <li>Worked on creating Allegheny___</li>
-            <li>Independently refactored __ SimSearch</li>
-            <li>Worked on several pages in Traffic Jam</li>
-            <li>Communicated with clients Allgheney and PD</li>
-            <li>Javascript, React, Django, SQL, Bash</li>
+            <li>Designed, coded, and launched the Advanced Analytics page for Marinus Analytics flagship tool, TrafficJam, for data trending and insights.</li>
+            <li>Designed and programmed the following pages: Finding Potential Missing Juveniles, Monitoring Site Analytics, Map Area Search Page.</li>
+            <li>Responsible for refactoring and modernizing TrafficJam’s front end from JQuery to ReactJS resulting in improved page functionality and responsiveness.</li>
           </ul>
-          <h6>Penrose Graphics Research Intern	May 2018 - August 2018</h6>
-          <p>Carnegie Mellon University, Pittsburgh, Pennsylvania</p>
+          <h5 className="title-role">Software Engineer</h5>
+          <h6>July 2019 - January 2023</h6>
+          <p>Marinus Analytics, Pittsburgh, Pennsylvania</p>
           <ul>
-            <li>Researched graphics optimization methods for ideal shape placement within a 2D diagram.</li>
-            <li>Engineered solutions to the optimization problem and documented the proposed algorithms in design documents.</li>
-            <li>Implemented the foundations of the Penrose graphics API in Haskell and Javascript</li>
-            <li> Haskell, Javascript</li>
-          </ul>
-          <h6>Middle Stack Developer 	September 2017 - May 2018</h6>
-          <p>Ninkasi Brewing, Eugene, Oregon</p>
-          <ul>
-            <li>Designed and implemented a web app for brewery data collection and tracking.</li>
-            <li>Met regularly with Ninkasi’s brewers to tailor the application to their specifications and communicate the app’s progress.</li>
-            <li>Vue.js</li>
-          </ul>
-          <h6>SeqAn Software Development Intern	June 2016 - September 2016</h6>
-          <p>Freie Universität Berlin, Berlin, Germany</p>
-          <ul>
-            <li>Helped develop the SeqAn open source genome sequencing library with a group graduate student and post-graduate workers.</li>
-            <li>Independently coded I/O functionality for 5 RNA file types and coded test files for the I/O procedures.</li>
-            <li>Documented tutorials and exercises on how to use the software.</li>
-            <li>C++, SeqAn API</li>
+            <li>Independently refactored and maintained TrafficJam’s image similarity tool SimSearch.
+</li>
+            <li>Designed and programmed the following pages: Finding Potential Missing Juveniles, Monitoring Site Analytics, Map Area Search Page.</li>
+            <li>Created and deployed web scrapers to collect online escort advertisement data.</li>
+            <li>Full stack engineer responsible for developing, debugging, testing, and documenting.</li>
+            <li>Javascript, React, Django, Python, SQL, Bash, AWS, ElasticSearch, Airflow, Docker, Web Scrapers</li>
           </ul>
 
-          <h4>Skills And Interests</h4>
-          <h6>Computing Skills</h6>
-          <ul>
-            <li>Well versed in Javascript, React, C, C++, Python, HTML, SQL and Bash.</li>
-            <li>Has a moderate understanding of CSS, Django, ElasticSearch, Vue.js, jQuery, and ___.</li>
-            <li>Is proficient in Adobe XD</li>
-          </ul>
+          <h5 className="title-role">Penrose Graphics Research Intern</h5>
+          <h6>May 2018 - August 2018</h6>
+            <p>Carnegie Mellon University, Pittsburgh, Pennsylvania</p>
+            <ul>
+              <li>Researched graphics optimization methods for ideal shape placement within a 2D diagram.</li>
+              <li>Engineered solutions to the optimization problem and documented the proposed algorithms in design documents.</li>
+              <li>Implemented the foundations of the Penrose graphics API in Haskell and Javascript</li>
+              <li> Haskell, Javascript</li>
+            </ul>
+          
+          <button className="btn" onClick={this.toggleViewMoreWork.bind(this)}>{viewText}</button>
+          <br />
+          { this.state.moreWork && 
+          <div>
+            <h5 className="title-role">Introduction To Computer Science Teacher's Assistant</h5>
+            <h6>September 2015 - May 2018</h6>
+            <p>Oregon State University, Corvallis, Oregon</p>
+            <ul>
+              <li>FILL IN HRE</li>
+              <li>C++, C</li>
+            </ul>
+            <h5 className="title-role">Middle Stack Developer</h5>
+            <h6>September 2017 - May 2018</h6>
+            <p>Ninkasi Brewing, Eugene, Oregon</p>
+            <ul>
+              <li>Designed and implemented a web app for brewery data collection and tracking.</li>
+              <li>Met regularly with Ninkasi’s brewers to tailor the application to their specifications and communicate the app’s progress.</li>
+              <li>Vue.js</li>
+            </ul>
+            <h5 className="title-role">SeqAn Software Development Intern</h5>
+            <h6>June 2016 - September 2016</h6>
+            <p>Freie Universität Berlin, Berlin, Germany</p>
+            <ul>
+              <li>Helped develop the SeqAn open source genome sequencing library with a group graduate student and post-graduate workers.</li>
+              <li>Independently coded I/O functionality for 5 RNA file types and coded test files for the I/O procedures.</li>
+              <li>Documented tutorials and exercises on how to use the software.</li>
+              <li>C++, SeqAn API</li>
+            </ul>
+            </div>
+        }
+
+          <h4>Education</h4>
+          <p>Oregon State University, Corvallis, Oregon   </p>
+          <p>B.S. Computer Science, GPA: 3.69</p>
+
+          <h4>Other Skills And Interests</h4>
           <h6>Languages</h6>
           <ul>
             <li>Spanish - ILR Level 4: Full professional proficiency</li>
@@ -74,4 +115,3 @@ class Resume extends React.Component {
   }
 }
 
-export default Resume;

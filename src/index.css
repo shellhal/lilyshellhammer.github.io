@@ -11,7 +11,132 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 }
 
+.btn {
+  border: none;
+  background-color: #ababab;
+  color: black;
+  boder-radius: 1px solid grey;
+}
 
+.skills-container {
+  display: flex;
+  align-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 5px 20px;
+}
+.skill-wrapper {
+  font-size: 15px;
+  padding: 2px;
+  flex-grow:1;
+  flex-basis: 25px;
+  min-width: 110px;
+  max-width: 110px;
+  background: white;
+  border-radius: 7px;
+}
+.skill-years {
+  color: grey;
+  font-size: 12px;
+}
+.skill-places {
+  display: flex;
+  float: right;
+}
+.dot {
+  flex-grow:1;
+  max-width: 12px;
+  margin-right: 3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.marinus-dot {
+  background-color: #1de2b8;
+}
+.osu-dot {
+  background-color: #ff8d42;
+}
+.cmu-dot {
+  background-color: #ea2a2a;
+}
+.project-dot {
+  background-color: #39b3f9;
+}
+.linkedin {
+  width:20px;
+}
+
+
+html,body {
+  height: 100%;
+}
+
+.wrapper {
+  height: 100%;
+}
+
+.fixed-bg {
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100%; 
+  width: 100%;
+/*  color: white;*/
+/*  text-align: center;*/
+padding: 10px;
+  display: table;
+}
+
+.fixed-bg h1 {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.scroll-bg {
+  padding: 20px;
+  background-color: white;
+  color: black;
+}
+
+/* first section */
+
+.bg-1 {
+  background-color: white;
+  height:400px;
+}
+.bg-scroll-2 {
+  background-color: #72cbff;
+}
+
+/* third section */
+
+.bg-2 { 
+  background-image: url('./img/PittsburghSky1.png');
+  height:500px;
+}
+
+/* fifth section */
+
+.bg-3 {
+/*  background-image: url('./img/purplepink.jpg');*/
+  background-color: #F4DBD8;
+}
+
+.principles-section {
+  margin: 30px;
+}
+.marinus-work-subtitle {
+  color: blue;
+}
+
+.about-section-title {
+  margin: 10px 20px;
+}
+.title-role {
+  color: #1e63db;
+}
 .header {
   margin: 1vh 3vh 0 0 0;
   color: #000000;
@@ -147,11 +272,30 @@ main {
 .disabled-box {
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
-
+.work-at-marinus-title {
+  width: 100%;
+  text-align: right;
+}
+.pub-my-name {
+  color: blue;
+  font-weight: bold;
+}
+.penrose-graph {
+  width: 160px;
+}
+.once-upon {
+  width: 200px;
+}
+.marinus-site {
+  max-width: 300px;
+  width: 100%;
+}
 .my-face {
   background-image: url(./img/my_face.png);
-  background-size: cover;
-  width: 50px;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .main-inner-wrapper {
@@ -204,7 +348,7 @@ main {
   -webkit-transition:height 0.5s;
 }
 .grow:hover {
-    height: 115px; /* This is the height on hover */
+    height: 115px; /* This is the height on hover  */
 }
 
 .white-box-backround {
@@ -216,7 +360,6 @@ main {
 .highlighted1 {
   color: white;
   background-image: url(./img/deathvalley.jpg);
-  /* background-image: url(./img/whispy.jpg); */
   background-size: cover;
 }
 .highlighted2 {
@@ -231,7 +374,6 @@ main {
 }
 .highlighted4 {
   color: white;
-  /* background-image: url(./img/deathvalley.jpg); */
   background-image: url(./img/whispy.jpg);
   background-size: cover;
 }
@@ -264,7 +406,6 @@ main {
   margin: auto;
   display: inline-block;
   padding: 20px;
-  /* background-color:#C8ABC9; */
 }
 
 .prev-next-carousel {
@@ -279,11 +420,7 @@ main {
   margin:auto;
 }
 
-.my-face {
-  margin-right: 20px;
-  margin-top: 20px;
-  width: 10vw;
-}
+
 
 .split-para { display:block;margin:10px;}
 .split-para span { display:block;float:right;width:50%;margin-left:10px;}
@@ -293,11 +430,12 @@ main {
   height: 5vw;
   margin: 2vw;
   width: 420px;
+  padding-left: 10px;
+  padding-top: 5px;
   text-align: left;
   color: black;
   font-size: 20px;
   background-color: #ebebeb;
-  /* font-weight: bold; */
 }
 
 .inner-content-buttons {
