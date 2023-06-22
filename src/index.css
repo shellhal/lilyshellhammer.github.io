@@ -272,7 +272,10 @@ main {
 .disabled-box {
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
-.work-at-marinus-title {
+.right-align {
+  text-align: right;
+}
+.right-title {
   width: 100%;
   text-align: right;
 }

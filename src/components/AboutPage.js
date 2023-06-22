@@ -84,7 +84,7 @@ class AboutPage extends Component {
 
     <div class="scroll-bg bg-scroll-1">
       <Row>
-          <h3 className="about-section-title work-at-marinus-title">My Work at Marinus Analtyics</h3>
+          <h3 className="about-section-title right-title">My Work at Marinus Analtyics</h3>
       </Row>
       <Row>
         <Col xs="6" sm="9">
@@ -142,7 +142,7 @@ class AboutPage extends Component {
       </div>
 
       <div class="fixed-bg bg-3">
-        <h3 className="about-section-title">My Software Engineering Principles </h3>
+        <h3 className="about-section-title">Teaching Assistant Work</h3>
         <div className="principles-section">
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
           <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
