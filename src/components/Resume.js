@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 import { Container, Col } from 'reactstrap';
-import Title from './Title';
+// import Title from './Title';
 
 export default class Resume extends Component {
   constructor(props) {
@@ -16,17 +16,15 @@ export default class Resume extends Component {
     this.setState({ moreWork: !this.state.moreWork });
   }
 
-  downloadResume() {
-    // do something;
-  }
-
   render() {
     const viewText = this.state.moreWork ? 'View Less Work' : 'View More Work';
     return (
       <Container>
         <div className="portfolio-wrapper">
-          <Title title={'Resume'} hoverContent={''}/>
-          <button className="btn" onClick={this.downloadResume.bind(this)}>Download Resume as PDF</button>
+          <div className="resume-header-wrapper">
+            <h2>Resume</h2>
+            <a href="./src/docs/LilyShellhammerResume.pdf" download><button className="my-btn">Download Resume as PDF</button></a>
+          </div>
           <Col>
           <h3>Lily Shellhammer</h3>
           <p>Phone: (541)-740-8581 Email: lily.shellhammer@gmail.com</p>
@@ -67,15 +65,16 @@ export default class Resume extends Component {
               <li> Haskell, Javascript</li>
             </ul>
           
-          <button className="btn" onClick={this.toggleViewMoreWork.bind(this)}>{viewText}</button>
+          <button className="my-btn" onClick={this.toggleViewMoreWork.bind(this)}>{viewText}</button>
           <br />
           { this.state.moreWork && 
-          <div>
+          <div className="more-work-section">
             <h5 className="title-role">Introduction To Computer Science Teacher's Assistant</h5>
             <h6>September 2015 - May 2018</h6>
             <p>Oregon State University, Corvallis, Oregon</p>
             <ul>
-              <li>FILL IN HRE</li>
+              <li>Independently taught recitations and co-lead lab sections and supplemental review sessions.</li>
+              <li>Held office hours and in-person grading sessions where I worked 1-on-1 with students to review the curriculum and assist with assigments.</li>
               <li>C++, C</li>
             </ul>
             <h5 className="title-role">Middle Stack Developer</h5>

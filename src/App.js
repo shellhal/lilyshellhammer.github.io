@@ -2,74 +2,68 @@ import React from 'react';
 
 import './App.css';
 import Header from './components/Header';
-import Main from './components/Main';
+// import Main from './components/Main';
 import Resume from './components/Resume';
-import Contact from './components/Contact';
-import Portfolio from './components/Portfolio';
-import ArtPage from './components/ArtPage';
-import PublicationsPage from './components/PublicationsPage';
-import MockupPage from './components/MockupPage';
-import ChartPage from './components/ChartPage';
+import ContactModal from './components/ContactModal';
+// import ChartPage from './components/ChartPage';
 import AboutPage from './components/AboutPage';
+import PixelArt from './components/PixelArt';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: 'main',
+      content: 'pixel',
       width: 0,
       height: 0,
+      modalOpen: false,
     };
     // this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.updateWindowDimensions();
-  //   window.addEventListener('resize', this.updateWindowDimensions);
-  // }
-  //
-  // componentWillUnmount() {
-  //   window.removeEventListener('resize', this.updateWindowDimensions);
-  // }
-  //
-  // updateWindowDimensions() {
-  //   this.setState({ width: window.innerWidth, height: window.innerHeight });
-  // }
 
   changeContent(value) {
     this.setState({ content: value });
   }
 
+  toggle() {
+    this.setState({'modalOpen': !this.state.openModal });
+  }
+
+  closeModal() {
+    this.setState({'modalOpen': false });
+  }
+
   getBody() {
     // return <Main changeContent={this.changeContent.bind(this)}/>
-    if (this.state.content === 'about' || this.state.content === 'main') {
-      return <AboutPage />
-    } else if (this.state.content === 'resume') {
+    if (this.state.content === 'resume') {
       return <Resume />
-    } else if (this.state.content === 'portfolio') {
-      return <Portfolio changeContent={this.changeContent.bind(this)}/>
-    } else if (this.state.content === 'artpage') {
-      return <ArtPage />
-    } else if (this.state.content === 'publicationsPage') {
-      return <PublicationsPage />
-    } else if (this.state.content === 'mockupspage') {
-      return <MockupPage />
-    } else if (this.state.content === 'chartpage') {
-      return <ChartPage />
+    } else if (this.state.content === 'pixel') {
+      return <PixelArt />
     } else {
-      return <Contact />
+      return <AboutPage changeContent={this.changeContent.bind(this)}/>
     }
   }
   render() {
+    const mainCN = (this.state.content === 'pixel') ? "colored-bg-pixel" : "";
     return (
-      <main>
+      <main className={mainCN}>
         <header className="App-header">
           <Header
-          changeContent={ this.changeContent.bind(this) }/>
+            closeModal={this.closeModal.bind(this)}
+            toggle={this.toggle.bind(this)}
+            changeContent={ this.changeContent.bind(this) }/>
         </header>
         <div>
           { this.getBody() }
         </div>
+        <div className="footer">
+          <div className="footer-text">Designed and Coded by Lily Shellhammer 2023</div>
+        </div>
+        <ContactModal 
+          modalOpen={this.state.modalOpen}
+          closeModal={this.closeModal.bind(this)}
+          toggle={this.toggle.bind(this)} 
+        />
       </main>
     );
   }
