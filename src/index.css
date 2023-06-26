@@ -60,6 +60,7 @@ html,body {
 }
 
 .wrapper {
+
 }
 .center {
   margin:auto;
@@ -76,6 +77,41 @@ html,body {
 .hidden {
   display: none;
 }
+.flex-basis {
+  flex-basis: 10px;
+}
+
+
+/* --------------    Slider   ---- */
+/* --------------------------------------- */
+.myslider {
+  min-width: 80%;
+  max-width: 100%;
+  margin: auto 20px;
+  height: 25px;
+}
+
+.myslider-track {
+   top: 8px;
+  height: 4px;
+  background: grey;
+}
+
+.myslider-track.myslider-track-0 {
+  background: white;
+}
+.myslider-thumb {
+  cursor: pointer;
+  background: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  outline: none;
+}
+
+.myslider-thumb:hover {
+  box-shadow: 0 0 0 8px blue;
+}
 
 /* --------------    Pixel Art Page   ---- */
 /* --------------------------------------- */
@@ -83,25 +119,33 @@ html,body {
 /*  display: flex;*/
   justify-content: center;
   align-items: center;
+  gap: 20px;
 
 }
 .colored-bg-pixel {
   background: #89c2d9;
 }
 .canvas-wrapper {
+  width: 580px;
+  height: 580px;
+  border-radius: 10px;
+  background-color: white;
 }
 .tools-pixel {
-  height: 540px;
+  height: 580px;
 /*  background-color: white;*/
   margin: 20px;
   padding: 20px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.3);
   
 }
 .my-canvas {
-  margin: 20px 20px;
+  margin: 10px auto;
   background: white;
   border: 2px solid white;
+
+  display:block;
 }
 .color-palette {
   flex-wrap: wrap;
@@ -116,16 +160,15 @@ html,body {
 }
 
 .pixel-color-picker-wrapper {
-/*  width: 90%;*/
-  margin: 10px;
+  margin: 0 20px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
 }
 .chosen-brush-tool {
-  margin: 20px 0px;
-  width: 200px;
-  height: 200px;
+  margin: 5px 0px;
+  width: 150px;
+  height: 150px;
   border: 1px solid white;
 
   border-radius: 10px;
@@ -133,6 +176,18 @@ html,body {
 }
 .chosen-brush {
   margin: auto;
+}
+.pixel-preview {
+  width: 400px;
+}
+.history-section {
+  overflow-x: scroll;
+  max-height: 110px;
+  font-size: 12px;
+}
+.history-time {
+  font-style: italic;
+  color: grey;
 }
 
 .color-box {
@@ -160,6 +215,9 @@ html,body {
   background: #ddd;
   color: black;
 }
+.pixel-button.disabled {
+  color: grey;
+}
 .pixel-button.btn-primary {
   background-color: #329ec9;
 }
@@ -168,6 +226,20 @@ html,body {
 
 .clear-modal {
   margin-top:40vh !important;
+}
+
+
+/* --------------    Project Page   -------- */
+/* --------------------------------------- */
+.project-square {
+  margin: 20px;
+}
+.project-img:hover {
+  text-shadow: 0 0 8px rgba(79, 211, 255, 0.8);
+  box-shadow: 0 4px 8px 0 rgba(79, 211, 255, 0.8), 0 6px 20px rgba(79, 211, 255, 0.8);
+}
+.project-wrapper {
+  height: 89vh;
 }
 /* --------------    About Page   -------- */
 /* --------------------------------------- */

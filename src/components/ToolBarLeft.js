@@ -1,5 +1,5 @@
 import React from 'react';
-import { Canvas } from './Canvas';
+import MyReactSlider from './MyReactSlider';
 
 class ToolBarLeft extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class ToolBarLeft extends React.Component {
     }
   }
 
+  //-------------------------------------------------------------------------
   selectPen() {
   	this.props.setPen('pen');
   }
@@ -23,6 +24,7 @@ class ToolBarLeft extends React.Component {
   	this.props.setPen('square');
   }
 
+  //-------------------------------------------------------------------------
   setBrushSize(event) {
   	let size = 'lg';
   	if (event.target.firstChild.nodeValue === 'Small') {
@@ -33,32 +35,56 @@ class ToolBarLeft extends React.Component {
   	this.props.setSize(size);
   }
 
+  //-------------------------------------------------------------------------
   undo() {
 	this.props.undo();
   }
-
+  redo() {
+	this.props.redo();
+  }
   clear() {
 	this.props.clear();
   }
 
+  //-------------------------------------------------------------------------
+  changeGridSize(value) {
+  	this.props.changeGridSize(value);
+  }
+
+  //-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
   render() {
   	const penCn = (this.props.selectedPen === 'pen') ? 'pen selected': 'pen';
   	const bgCn = (this.props.selectedPen === 'bg') ? 'bg selected': 'bg';
-  	let pixels = (this.props.brushSize === 'sm') ? "26px" : ((this.props.brushSize === 'md') ? "52px" : "78px");
+  	const gs = this.props.gridSize;
+  	const gs2 = this.props.gridSize*3;
+  	const gs3 =  this.props.gridSize*5;
+  	let pixels = (this.props.brushSize === 'sm') ? (gs + "px") : ((this.props.brushSize === 'md') ? (gs2+ "px") : (gs3 + "px"));
   	
-  	let margin = (this.props.brushSize === 'sm') ? "85px" : ((this.props.brushSize === 'md') ? "75px" : "60px");
+
+  	let smallCn = (this.props.brushSize === 'sm') ? 'selected': '';
+  	let mediumCn = (this.props.brushSize === 'md') ? 'selected': '';
+  	let largeCn = (this.props.brushSize === 'lg') ? 'selected': '';
+
+  	let margin = (this.props.brushSize === 'sm') ? ((75 - parseInt(gs/2)) + "px") : ((this.props.brushSize === 'md') ? ((75 - parseInt(gs2/2)) + "px") : ((75 - parseInt(gs3/2)) + "px"));
   	
   	if (this.props.selectedPen === 'bg') {
-  		pixels = "190px";
+  		pixels = "140px";
+  		smallCn = ' disabled';
+  		mediumCn = ' disabled';
+  		largeCn = ' disabled';
   		margin= "3px"; 
   	}
   	// const circleCn = (this.props.selectedPen === 'circle') ? 'circle selected': 'circle';
   	// const squareCn = (this.props.selectedPen === 'square') ? 'square selected': 'square';
 
-  	const smallCn = (this.props.brushSize === 'sm') ? 'selected': '';
-  	const mediumCn = (this.props.brushSize === 'md') ? 'selected': '';
-  	const largeCn = (this.props.brushSize === 'lg') ? 'selected': '';
-
+  	const undoButton = (this.props.drawnOrder === 1) ? <button onClick={this.undo.bind(this)} disabled className={"pixel-button disabled"}>Undo</button>: <button onClick={this.undo.bind(this)} className={"pixel-button "}>Undo</button>;
+  	const redoButton = (this.props.redoQueue.length === 0) ? <button onClick={this.redo.bind(this)} disabled className={"pixel-button disabled"}>Redo</button>: <button onClick={this.redo.bind(this)} className={"pixel-button "}>Redo</button>;
+  	
+  	const history  = [];
+  	// for (let i = this.props.drawnOrder - 1; i >= 1; i -= 1) {
+  	// 	history.push(<div>{this.props.history[i][0]} <span className="history-time">{this.props.history[i][1]}</span></div>);
+  	// }
     return (
     	<div className="tools-pixel ">
     		<div className="chosen-brush-wrapper">
@@ -82,10 +108,25 @@ class ToolBarLeft extends React.Component {
     			<button onClick={this.setBrushSize.bind(this)} className={" pixel-button " + mediumCn}>Medium</button>
     			<button onClick={this.setBrushSize.bind(this)} className={" pixel-button " + largeCn}>Large</button>
     		</div>
+
+    		<div className="my-hr"></div>
+    		<div>
+    			<MyReactSlider
+    			 gridSize={this.props.gridSize}
+				 changeGridSize={this.changeGridSize.bind(this)}
+		         className="customSlider"
+		         trackClassName="customSlider-track"
+		        />
+    		</div>
     		<div className="my-hr"></div>
     		<div className="pixel-button-set">
-    			<button onClick={this.undo.bind(this)} className=" pixel-button">Undo</button>
-    			<button onClick={this.clear.bind(this)} className=" pixel-button">Clear</button>
+    			{undoButton}
+    			{redoButton}
+    			<button onClick={this.clear.bind(this)} className="pixel-button ">Clear</button>
+    		</div>
+    		<div className="my-hr"></div>
+    		<div className="pixel-button-set history-section">
+    			{history}
     		</div>
     	</div>
     );

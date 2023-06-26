@@ -28,7 +28,7 @@ class Header extends React.Component {
     this.props.changeContent('resume');
   }
   redirectProjects() {
-    this.props.changeContent('portfolio');
+    this.props.changeContent('projects');
   }
   redirectContact() {
     this.props.changeContent('contact');
@@ -66,7 +66,7 @@ class Header extends React.Component {
             <NavLink onClick={ this.redirectResume.bind(this) }>Resume</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={this.redirectProjects.bind(this) }>Project</NavLink>
+            <NavLink onClick={this.redirectProjects.bind(this) }>Projects</NavLink>
           </NavItem>
           <NavItem>
             <NavLink onClick={this.toggleModal.bind(this) }>Contact</NavLink>

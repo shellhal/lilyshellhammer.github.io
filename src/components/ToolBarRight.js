@@ -5,7 +5,8 @@ class ToolBarRight extends Component {
     return (
       <div className="tools-pixel ">
         <div>
-          <button className="pixel-button">Download Image</button>
+          <a href={this.props.url} download><button 
+          className="pixel-button">Download Image</button></a>
         </div>
         <div className="share-buttons">
         </div>
