@@ -43,6 +43,9 @@ html,body {
 .hidden-link {
   color: black !important;
 }
+.justify-around {
+  justify-content: space-around;
+}
 .full-page {
   height: 90vh;
 }
@@ -178,7 +181,7 @@ html,body {
   margin: auto;
 }
 .pixel-preview {
-  width: 400px;
+  width: 23vw;
 }
 .history-section {
   overflow-x: scroll;
@@ -254,7 +257,9 @@ html,body {
 .accordion-wrapper {
   margin: 10px 0px;
 }
-
+.scroll-info {
+  color: #008CBA;
+}
 
 .languages {
   background-color: #fcb75d;
@@ -292,17 +297,50 @@ html,body {
   padding: 20px;
   font-size: 15px;
   margin: auto;
-  max-height: 100%;
-  transition: max-height 0.5s ease-out;
-  -webkit-transition:max-height 0.5s ease-out;
 }
-
-.inner-accordion .hidden {
+/*
+.inner-accordion.hidden {
   max-height: 0px;
-  transition:height max-height 0.5s ease-out;
-  -webkit-transition:max-height 0.5s ease-out;
+  transition:height max-height 0.5s;
+  -webkit-transition:max-height 0.5s;
+}*/
+.in-site-links {
+  min-width: 40vw;
+  max-width: 40vw;
+  color: white;
+  padding: 10px 5px;
+  background: white;
+/*  border: 2px solid grey;*/
+border-radius: 20px;
+  margin: auto;
+  text-align: center;
+  font-size: 25px;
 }
 
+.projects-link {
+ background-color: #83c172;
+}
+.resume-link {
+  background-color: #fcb75d;
+}
+.in-site-links:hover {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0, 0.3), 0 6px 20px rgba(0,0,0, 0.3);
+}
+.in-site-links-wrapper {
+  margin: 20px;
+}
+
+.outer-accordion {
+  max-height: 55px;
+  overflow: hidden;
+  transition: max-height 0.8s ease;
+  -webkit-transition:max-height 0.8s ease;
+}
+.outer-accordion:hover {
+  max-height: 100%;
+  transition: max-height 0.8s ease;
+  -webkit-transition:max-height 0.8s ease;
+}
 
 .skills-container {
   display: flex;
@@ -423,7 +461,7 @@ html,body {
 
 
 .bg-3 {
-  background-color: #4aa8e8;
+  background-color: #f49f5a;
 }
 
 .bg-4 { 
@@ -444,7 +482,16 @@ html,body {
 .marinus-work-subtitle {
   color: #1473e0;
 }
+.bullet-start {
+  font-weight: bold;
+}
+.bullet-end {
 
+}
+.ta-li {
+  margin: 10px;
+  font-size: 18px;
+}
 
 .more-work-section {
   margin-left: 20px;

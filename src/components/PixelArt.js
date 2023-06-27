@@ -24,7 +24,7 @@ class PixelArt extends React.Component {
       chosenColor: 'pink',
       selectedPen: 'pen',
       bgFlag: false,
-      drawnOrder: 1,
+      drawnOrder: 0,
       shapes: [],
       clearModalOpen: false,
       colors: [
@@ -75,32 +75,36 @@ class PixelArt extends React.Component {
     }
     const newHistory = this.state.history;
     if (!newHistory[this.state.drawnOrder]) {
-      newHistory[this.state.drawnOrder] = ['Shape', this.getNow()];
+      newHistory[this.state.drawnOrder] = ['Shape', this.getNow(), this.state.drawnOrder];
     }
     this.setState({shapes: [...new Set(newShapes)], history: newHistory});
   }
 
+
   //-------------------------------------------------------------------------
   addShape(shape) {
-    let bgFlag = false;
+    console.log('ADDSHAPE, drawnorder going INTO is? ' + (this.state.drawnOrder));
     let typeHistory = 'Stamp'
     let newShapes = this.state.shapes;
     if (this.state.selectedPen === 'pen') {
-      newShapes.push(shape);
       this.setState({shapes: newShapes});
     } else if (this.state.selectedPen === 'bg'){
-      bgFlag = true;
       typeHistory = 'Background Fill'
-      newShapes.push(shape);
     }
-    console.log('newShapes', newShapes);
+    newShapes.push(shape);
     const newHistory = this.state.history;
     const now = this.getNow();
-    const val = [typeHistory, now];
-    if (!newHistory[this.state.drawnOrder]) {
-      newHistory[this.state.drawnOrder] = val;
+    let condition = false;
+    if (this.state.drawnOrder > 1) {
+      condition = this.checkRepeatClick(now, this.state.history[this.state.drawnOrder-1], this.state.drawnOrder);
     }
-    this.setState({shapes: newShapes, drawnOrder: this.state.drawnOrder + 1, bgFlag, redoQueue: [], history: newHistory});
+    if (this.state.selectedPen === 'pen' && (!condition)) {
+      const val = [typeHistory, now, this.state.drawnOrder];
+      if (Object.keys(newHistory).length === 0 || !newHistory[this.state.drawnOrder]) {
+        newHistory[this.state.drawnOrder] = val;
+      }
+      this.setState({shapes: newShapes, redoQueue: [], history: newHistory});
+    }
   }
 
   //-------------------------------------------------------------------------
@@ -109,27 +113,50 @@ class PixelArt extends React.Component {
     const redoQueue = this.state.redoQueue;
     const newShapes = [];
     const newHistory = this.state.history;
-    delete newHistory[this.state.drawnOrder];
-    if (this.state.drawnOrder === 1) {
+    if (this.state.drawnOrder === 0) {
       return;
     }
     for (let i = 0; i < oldShapes.length; i += 1) {
       const val = oldShapes[i];
-      if (val['drawnOrder'] < (this.state.drawnOrder-1)) {
+      if (val['drawnOrder'] < (this.state.drawnOrder -1)) {
         if (!newShapes.includes(val)) {
           newShapes.push(val);
         }
       } else {
         if (!redoQueue.includes(val)) {
-          redoQueue.push({'val': val, history: newHistory});
+          redoQueue.push({'val': val, history: newHistory[this.state.drawnOrder]});
         }
       }
     }
-    this.setState({shapes: newShapes, drawnOrder: (this.state.drawnOrder-1), redoQueue, history: newHistory });
+
+    console.log('UNDO, drawnorder going from ' + (this.state.drawnOrder) + " to " + (this.state.drawnOrder-1) + " and newshapes is ", newShapes);
+    delete newHistory[this.state.drawnOrder];
+    this.setState({shapes: newShapes, drawnOrder: (this.state.drawnOrder - 1), redoQueue, history: newHistory });
+  }
+
+  checkRepeatClick(nowTime, historyItem, currDrawOrder) {
+    let retFlag = true;
+    //check if lasthistory drawnorder is 1 less than current
+    // AND
+    // lasthistory shape is Shape and currShape is Stamp
+    // AND 
+    if ((historyItem[2] + 1) !== currDrawOrder) {
+      retFlag = false;
+    }
+    const currTime = parseFloat(nowTime.split(':')[1]);
+    const prevTime = parseFloat(historyItem[1].split(':')[1]);
+    if ((currTime - prevTime) > 1.0) {
+      retFlag = false;
+    }
+    if (historyItem[0] !== 'Shape') {
+      retFlag = false;
+    }
+    return retFlag;
   }
 
   //-------------------------------------------------------------------------
   redo() {
+    console.log('REDO, drawnorder from ' + (this.state.drawnOrder) + " to " + (this.state.drawnOrder+1));
     const oldShapes = this.state.shapes;
     const newRedoQueue = [];
     const newShapes = [];
@@ -142,15 +169,16 @@ class PixelArt extends React.Component {
         }
       }
     }
+    // console.log('WAHT IS REDO QUEUE', this.state.redoQueue);
     for (let i = 0; i < this.state.redoQueue.length; i += 1) {
       const val = this.state.redoQueue[i];
-      if ( val['val']['drawnOrder'] === (this.state.drawnOrder)) {
+      if (val['val']['drawnOrder'] === (this.state.drawnOrder + 1)) {
         if (!newShapes.includes(val['val'])) {
           newShapes.push(val['val']);
-          if (val['history'].indexOf("Redo") >= 0) {
-            newHistory[this.state.drawnOrder] = ([val['history'][0], this.getNow()]);
+          if (val['history'][0].indexOf("Redo") >= 0) {
+            newHistory[this.state.drawnOrder] = ([val['history'][0], this.getNow(), this.state.drawnOrder]);
           } else {
-            newHistory[this.state.drawnOrder] = (['Redo ' + val['history'][0], this.getNow()]);
+            newHistory[this.state.drawnOrder] = (['Redo ' + val['history'][0], this.getNow(), this.state.drawnOrder]);
           }
         }
       } else {
@@ -159,6 +187,10 @@ class PixelArt extends React.Component {
         }
       }
     }
+    // console.log('REDO: redoQueue', newRedoQueue);
+    // console.log('REDO: newShapes', newShapes);
+    // console.log('REDO: newDrawnOrder', this.state.drawnOrder+1);
+
     this.setState({shapes: newShapes, drawnOrder: (this.state.drawnOrder+1), redoQueue: newRedoQueue, history: newHistory  })
   }
 

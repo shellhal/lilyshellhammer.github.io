@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: 'main',
+      content: 'pixel',
       width: 0,
       height: 0,
       modalOpen: false,

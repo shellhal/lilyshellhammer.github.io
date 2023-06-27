@@ -78,7 +78,7 @@ class ToolBarLeft extends React.Component {
   	// const circleCn = (this.props.selectedPen === 'circle') ? 'circle selected': 'circle';
   	// const squareCn = (this.props.selectedPen === 'square') ? 'square selected': 'square';
 
-  	const undoButton = (this.props.drawnOrder === 1) ? <button onClick={this.undo.bind(this)} disabled className={"pixel-button disabled"}>Undo</button>: <button onClick={this.undo.bind(this)} className={"pixel-button "}>Undo</button>;
+  	const undoButton = (this.props.drawnOrder === 0) ? <button onClick={this.undo.bind(this)} disabled className={"pixel-button disabled"}>Undo</button>: <button onClick={this.undo.bind(this)} className={"pixel-button "}>Undo</button>;
   	const redoButton = (this.props.redoQueue.length === 0) ? <button onClick={this.redo.bind(this)} disabled className={"pixel-button disabled"}>Redo</button>: <button onClick={this.redo.bind(this)} className={"pixel-button "}>Redo</button>;
   	
   	const history  = [];

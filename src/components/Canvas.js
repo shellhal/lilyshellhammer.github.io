@@ -134,7 +134,7 @@ export default class Canvas extends Component {
   }
 
   //-------------------------------------------------------------------------
-  drawAllCanvas() {
+  drawAllCanvas(seconds) {
     if (!this.ref.current) {
       return;
     }
@@ -143,14 +143,18 @@ export default class Canvas extends Component {
       return;
     }
     ctx.clearRect(0, 0, this.props.widthNum, this.props.heightNum);
-    grid({ctx, width: this.props.widthNum, height: this.props.heightNum, gridSize: this.props.gridSize});
     if (ctx) {
+      for (let i = 0; i < this.props.shapes.length; i += 1) {
+        const shape = this.props.shapes[i];
+        if (shape['shape'] === 'bg') {
+          rect({ctx, 'brushSize': shape['size'], x: 1, y: 1, width: this.props.widthNum, height: this.props.heightNum, color: shape['color'], gridSize: this.props.gridSize});
+        }
+      }
+      grid({ctx, width: this.props.widthNum, height: this.props.heightNum, gridSize: this.props.gridSize});
       for (let i = 0; i < this.props.shapes.length; i += 1) {
         const shape = this.props.shapes[i];
         if (shape['shape'] === 'rect') {
           rect({ctx, 'brushSize': shape['size'], x: shape['x'], y: shape['y'], width: this.props.gridSize, height: this.props.gridSize, color: shape['color'], gridSize: this.props.gridSize});
-        } else if (shape['shape'] === 'bg') {
-          rect({ctx, 'brushSize': shape['size'], x: 1, y: 1, width: this.props.widthNum, height: this.props.heightNum, color: shape['color'], gridSize: this.props.gridSize});
         }
       }
     }
@@ -159,7 +163,7 @@ export default class Canvas extends Component {
   //-------------------------------------------------------------------------
   //-------------------------------------------------------------------------
   render() {
-    this.drawAllCanvas();
+    this.drawAllCanvas(this.state.seconds);
     return (
         <canvas 
           onClick={this.drawShape.bind(this)} 
