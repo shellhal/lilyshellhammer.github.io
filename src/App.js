@@ -62,7 +62,7 @@ class App extends React.Component {
           { this.getBody() }
         </div>
         <div className="footer">
-          <div className="footer-text">Designed and Coded by Lily Shellhammer 2023</div>
+          <div className="footer-text">Designed and Coded in React, L.S. 2023</div>
         </div>
         <ContactModal 
           modalOpen={this.state.modalOpen}

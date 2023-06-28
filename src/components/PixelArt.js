@@ -13,7 +13,8 @@ class PixelArt extends React.Component {
       gridSize: 26,
       redoQueue: [],
       downloadURL: '',
-      history: {},
+      history: [],
+      tempShapes: [],
       originalGridSize: 26,
       maxDrawnOrder: 1,
       canvasSize: 540, //width and height
@@ -64,134 +65,270 @@ class PixelArt extends React.Component {
   }
 
   //-------------------------------------------------------------------------
-  handleUpdateDrawnOrder() {
-    this.setState({ drawnOrder: this.state.drawnOrder + 1});
+  isValid(grid, width, height, x, y, prevC, newC) {
+    if (x < 0 || x >= width || y < 0 || y >= height || grid[x][y] != prevC
+       || grid[x][y] === newC)
+        return false;
+    return true;
   }
+ 
+ 
+  //-------------------------------------------------------------------------
+  // FloodFill function
+  floodFill(grid, width, height, x, y, prevC, newC){
+    const queue = [];
+ 
+    // Append the position of starting
+    // pixel of the component    
+    queue.push([x,y]);
+ 
+    // Color the pixel with the new color
+    grid[x][y] = newC;
+ 
+    // While the queue is not empty i.e. the
+    // whole component having prevC color
+    // is not colored with newC color
+    while (queue.length > 0){
+        // Dequeue the front node
+        const coord = queue.pop();
+ 
+        const posX = coord[0];
+        const posY = coord[1];
+        
+        let first = null;
+        let second = null
+        // Check if the adjacent
+        // pixels are valid
+        if (this.isValid(grid,width, height, posX + 1, posY, prevC, newC)) {
+            // Color with newC
+            // if valid and enqueue
+            grid[posX + 1][posY] = newC;
+            first = posX + 1;
+            second = posY;
+            queue.push([first, second]);
+        }
+ 
+        if(this.isValid(grid,width, height, posX-1, posY, prevC, newC))
+        {
+            grid[posX-1][posY]= newC;
+            first = posX-1;
+            second = posY;
+            queue.push([first, second]);
+        }
+ 
+        if(this.isValid(grid,width, height, posX, posY + 1, prevC, newC))
+        {
+            grid[posX][posY + 1]= newC;
+            first = posX;
+            second = posY + 1;
+            queue.push([first, second]);
+        }
+ 
+        if(this.isValid(grid,width, height, posX, posY-1, prevC, newC))
+        {
+            grid[posX][posY-1]= newC;
+            first = posX;
+            second = posY-1;
+            queue.push([first, second]);
+        }
+    }
+  }
+
+  //-------------------------------------------------------------------------
+  handleAddFill(grid, newC, width, height, shapes) {
+    const newShapes = this.state.shapes;
+    const newHistory = this.state.history;
+    const shapeAdd = [];
+    for (let i = 0; i < width; i += 1) {
+      for (let k = 0; k < height; k += 1) {
+        if (grid[i][k] === newC) {
+          shapeAdd.push({'shape': 'rect', 'x': i, 'y': k, color: this.state.chosenColor, 'drawnOrder': this.state.drawnOrder});
+        }
+      }
+    }
+    newHistory.push(['Fill', this.getNow(), this.state.drawnOrder]);
+    newShapes.push({'shape': shapeAdd, 'drawnOrder': this.state.drawnOrder})
+    this.setState({ shapes: newShapes, drawnOrder: this.state.drawnOrder + 1, tempShapes: [], history: newHistory, redoQueue: []});
+  }
+
+  //-------------------------------------------------------------------------
+  handleFill(shape) {
+    const x = shape['x'];
+    const y = shape['y'];
+    const width = this.state.numWidthPixels + 1;
+    const height = this.state.numHeightPixels + 1;
+    if (x && y && (x < width && y < height)) {
+      const grid = [];
+      for (let i = 0; i < width; i += 1) {
+        let arr = [];
+        for (let k = 0; k < height; k += 1) {
+          arr.push(0);
+        }
+        grid.push(arr);
+        arr = [];
+      }
+      for (let i = 0; i < this.state.shapes.length; i += 1) {
+        const shapeInner = this.state.shapes[i]['shape'];
+        for (let k = 0; k < shapeInner.length; k += 1) {
+          const x = shapeInner[k]['x'];
+          const y = shapeInner[k]['y'];
+          if (x <= this.state.numWidthPixels && y <= this.state.numHeightPixels) {
+            grid[x][y] = shapeInner[k]['color'];
+          } 
+        }
+      }
+      const prevC = grid[x][y];
+      const newC = this.state.chosenColor;
+      this.floodFill(grid, width, height, x, y, prevC, newC);
+      this.handleAddFill(grid, newC, width, height);
+    }
+  }
+
+
+  //-------------------------------------------------------------------------
+  handleUpdateDrawnOrder(shape=null) {
+   let shapeIn = null;
+    if (shape) {
+      shapeIn = shape;
+    } else if (this.state.tempShapes.length) {
+      shapeIn = this.state.tempShapes.pop();
+    } else {
+      return;
+    }
+    
+    const typeHistory = (this.state.selectedPen === 'bg') ? 'Background Fill' : ((this.state.selectedPen === 'fill') ? 'Fill' : 'Stamp');
+    const now = this.getNow();
+
+    const newHistory = this.state.history;
+    const val = {'typeHistory': typeHistory, 'time': now, 'drawnOrder': this.state.drawnOrder};
+    if (!newHistory.includes(val)) {
+      newHistory.push(val);
+    }
+    if (this.state.selectedPen === 'pen') {
+      this.addManyShapes(this.state.tempShapes);
+      this.setState({ drawnOrder: this.state.drawnOrder + 1, tempShapes: [], history: newHistory});
+    } else if (this.state.selectedPen === 'bg') {
+      this.addManyShapes([{'shape': shapeIn, 'drawnOrder': this.state.drawnOrder}]);
+      this.setState({ drawnOrder: this.state.drawnOrder + 1, tempShapes: [], history: newHistory});
+    } else {
+      this.handleFill(shapeIn);
+    }
+  }
+
   //-------------------------------------------------------------------------
   addManyShapes(shapesIn) {
-    const newShapes = this.state.shapes;
     for (let i = 0; i < shapesIn.length; i += 1) {
-      newShapes.push(shapesIn[i]);
+      this.addShape(shapesIn[i], false);
     }
-    const newHistory = this.state.history;
-    if (!newHistory[this.state.drawnOrder]) {
-      newHistory[this.state.drawnOrder] = ['Shape', this.getNow(), this.state.drawnOrder];
+  }
+
+  //-------------------------------------------------------------------------
+  addShapeTemp(shapes) {
+    const newShapes = this.state.tempShapes;
+    for (let i = 0; i < shapes.length; i += 1) {
+      newShapes.push(shapes[i]);
     }
-    this.setState({shapes: [...new Set(newShapes)], history: newHistory});
+    this.setState({ tempshapes: newShapes});
   }
 
 
   //-------------------------------------------------------------------------
-  addShape(shape) {
-    console.log('ADDSHAPE, drawnorder going INTO is? ' + (this.state.drawnOrder));
-    let typeHistory = 'Stamp'
-    let newShapes = this.state.shapes;
-    if (this.state.selectedPen === 'pen') {
-      this.setState({shapes: newShapes});
-    } else if (this.state.selectedPen === 'bg'){
-      typeHistory = 'Background Fill'
-    }
-    newShapes.push(shape);
-    const newHistory = this.state.history;
-    const now = this.getNow();
-    let condition = false;
-    if (this.state.drawnOrder > 1) {
-      condition = this.checkRepeatClick(now, this.state.history[this.state.drawnOrder-1], this.state.drawnOrder);
-    }
-    if (this.state.selectedPen === 'pen' && (!condition)) {
-      const val = [typeHistory, now, this.state.drawnOrder];
-      if (Object.keys(newHistory).length === 0 || !newHistory[this.state.drawnOrder]) {
-        newHistory[this.state.drawnOrder] = val;
+  addNewOrAppend(shapes, newShape, drawnOrder) {
+    const newShapes = shapes;
+    if (shapes.length === 0 || newShape['shape']['shape'] === 'bg') {
+      newShapes.push({'shape': [newShape], 'drawnOrder': drawnOrder});
+    } else {
+      const lastShapeItem = newShapes.pop();
+      if (lastShapeItem['drawnOrder'] === drawnOrder) {
+        const arr = lastShapeItem['shape'];
+        arr.push(newShape);
+        newShapes.push({'shape': arr, 'drawnOrder': drawnOrder});
+      } else {
+        newShapes.push(lastShapeItem);
+        newShapes.push({'shape': [newShape], 'drawnOrder': drawnOrder});
       }
+    }
+    return newShapes;
+  }
+
+  //-------------------------------------------------------------------------
+  addShape(shape, printFlag=true) {
+    const newHistory = this.state.history;
+    
+    let lastHistoryVal = null;
+    if (this.state.drawnOrder > 1) {
+      lastHistoryVal = newHistory.pop();
+      newHistory.push(lastHistoryVal);
+    }
+
+    const newShapes = this.addNewOrAppend(this.state.shapes, shape, this.state.drawnOrder);
+    const now = this.getNow();
+
+    // const condition = (this.state.drawnOrder > 1); ? this.checkRepeatClick(now, lastHistoryVal, this.state.drawnOrder) : false;
+    if ((this.state.selectedPen === 'pen') || (this.state.selectedPen === 'bg')) {
+
+      // console.log('ADD SHAPE: shapes length', newShapes.length);
+      // console.log('ADD SHAPE: setting shapes', [...newShapes]);
+      // console.log('ADD SHAPE: setting history', newHistory);
+      // console.log('');
       this.setState({shapes: newShapes, redoQueue: [], history: newHistory});
     }
   }
 
   //-------------------------------------------------------------------------
   undo() {
-    const oldShapes = this.state.shapes;
     const redoQueue = this.state.redoQueue;
-    const newShapes = [];
+    const newShapes = this.state.shapes;
     const newHistory = this.state.history;
-    if (this.state.drawnOrder === 0) {
-      return;
-    }
-    for (let i = 0; i < oldShapes.length; i += 1) {
-      const val = oldShapes[i];
-      if (val['drawnOrder'] < (this.state.drawnOrder -1)) {
-        if (!newShapes.includes(val)) {
-          newShapes.push(val);
-        }
-      } else {
-        if (!redoQueue.includes(val)) {
-          redoQueue.push({'val': val, history: newHistory[this.state.drawnOrder]});
-        }
-      }
+
+    if (newHistory.length) {
+      const historyPop = newHistory.pop();
+      const shapePop = newShapes.pop();
+      redoQueue.push({'shape': shapePop, 'history': historyPop});
     }
 
-    console.log('UNDO, drawnorder going from ' + (this.state.drawnOrder) + " to " + (this.state.drawnOrder-1) + " and newshapes is ", newShapes);
-    delete newHistory[this.state.drawnOrder];
+    // console.log('UNDO: setting shapes', newShapes);
+    // console.log('UNDO: setting redoQueue', redoQueue);
+    // console.log('');
     this.setState({shapes: newShapes, drawnOrder: (this.state.drawnOrder - 1), redoQueue, history: newHistory });
   }
 
+//-------------------------------------------------------------------------
+  redo() {
+    const newRedoQueue = this.state.redoQueue;
+    const newShapes = this.state.shapes;
+    const newHistory = this.state.history;
+
+    const redoPop = newRedoQueue.pop();
+    newShapes.push(redoPop['shape']);
+    newHistory.push(redoPop['history']);
+
+
+    // console.log('REDO: setting shapes', newShapes);
+    // console.log('REDO: setting redoQueue', newRedoQueue);
+    // console.log('');
+    this.setState({shapes: newShapes, drawnOrder: (this.state.drawnOrder+1), redoQueue: newRedoQueue, history: newHistory  })
+  }
+
+//-------------------------------------------------------------------------
   checkRepeatClick(nowTime, historyItem, currDrawOrder) {
     let retFlag = true;
     //check if lasthistory drawnorder is 1 less than current
     // AND
     // lasthistory shape is Shape and currShape is Stamp
     // AND 
-    if ((historyItem[2] + 1) !== currDrawOrder) {
+    if ((historyItem['drawnOrder'] + 1) !== currDrawOrder) {
       retFlag = false;
     }
     const currTime = parseFloat(nowTime.split(':')[1]);
-    const prevTime = parseFloat(historyItem[1].split(':')[1]);
-    if ((currTime - prevTime) > 1.0) {
+    const prevTime = parseFloat(historyItem['time'].split(':')[1]);
+    if ((currTime - prevTime) > 0.3) {
       retFlag = false;
     }
-    if (historyItem[0] !== 'Shape') {
+    if (historyItem['typeHistory'] !== 'Shape') {
       retFlag = false;
     }
     return retFlag;
-  }
-
-  //-------------------------------------------------------------------------
-  redo() {
-    console.log('REDO, drawnorder from ' + (this.state.drawnOrder) + " to " + (this.state.drawnOrder+1));
-    const oldShapes = this.state.shapes;
-    const newRedoQueue = [];
-    const newShapes = [];
-    const newHistory = this.state.history;
-    for (let i = 0; i < oldShapes.length; i += 1) {
-      const val = oldShapes[i];
-      if (val['drawnOrder'] <= (this.state.drawnOrder)) {
-        if (!newShapes.includes(val)) {
-          newShapes.push(val);
-        }
-      }
-    }
-    // console.log('WAHT IS REDO QUEUE', this.state.redoQueue);
-    for (let i = 0; i < this.state.redoQueue.length; i += 1) {
-      const val = this.state.redoQueue[i];
-      if (val['val']['drawnOrder'] === (this.state.drawnOrder + 1)) {
-        if (!newShapes.includes(val['val'])) {
-          newShapes.push(val['val']);
-          if (val['history'][0].indexOf("Redo") >= 0) {
-            newHistory[this.state.drawnOrder] = ([val['history'][0], this.getNow(), this.state.drawnOrder]);
-          } else {
-            newHistory[this.state.drawnOrder] = (['Redo ' + val['history'][0], this.getNow(), this.state.drawnOrder]);
-          }
-        }
-      } else {
-        if (!newRedoQueue.includes(val)) {
-          newRedoQueue.push(val);
-        }
-      }
-    }
-    // console.log('REDO: redoQueue', newRedoQueue);
-    // console.log('REDO: newShapes', newShapes);
-    // console.log('REDO: newDrawnOrder', this.state.drawnOrder+1);
-
-    this.setState({shapes: newShapes, drawnOrder: (this.state.drawnOrder+1), redoQueue: newRedoQueue, history: newHistory  })
   }
 
   //-------------------------------------------------------------------------
@@ -217,7 +354,7 @@ class PixelArt extends React.Component {
   }
 
   setPen(value) {
-    this.setState({selectedPen: value});
+    this.setState({selectedPen: value, tempShapes: []});
   }
 
   setSize(size) {
@@ -247,7 +384,6 @@ class PixelArt extends React.Component {
           <div className="tools-pixel-canvas-wrapper flex-container flex-container-center">
             <div>
               <ToolBarLeft
-                history = {this.state.history}
                 gridSize={this.state.gridSize}
                 drawnOrder={this.state.drawnOrder}
                 redoQueue={this.state.redoQueue}
@@ -263,6 +399,7 @@ class PixelArt extends React.Component {
             </div>
             <div className="canvas-wrapper">
               <Canvas 
+                addShapeTemp={this.addShapeTemp.bind(this)}
                 handleUpdateDrawnOrder={this.handleUpdateDrawnOrder.bind(this)}
                 canvasType="main canvas"
                 refName="canvas"
@@ -282,6 +419,8 @@ class PixelArt extends React.Component {
             </div>
             <div>
               <ToolBarRight
+                drawnOrder={this.state.drawnOrder}
+                history={this.state.history}
                 url={this.state.downloadURL}
                 clear={this.clear.bind(this)}
                 setSize={this.setSize.bind(this)}

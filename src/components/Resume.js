@@ -17,14 +17,15 @@ export default class Resume extends Component {
   }
 
   render() {
+    //<a href="./src/docs/LilyShellhammerResume.pdf" download><button className="my-btn">Download Resume as PDF</button></a>
+          
     const viewText = this.state.moreWork ? 'View Less Work' : 'View More Work';
     return (
       <Container>
         <div className="portfolio-wrapper">
           <div className="resume-header-wrapper">
             <h2>Resume</h2>
-            <a href="./src/docs/LilyShellhammerResume.pdf" download><button className="my-btn">Download Resume as PDF</button></a>
-          </div>
+            </div>
           <Col>
           <h3>Lily Shellhammer</h3>
           <p>Phone: (541)-740-8581 Email: lily.shellhammer@gmail.com</p>

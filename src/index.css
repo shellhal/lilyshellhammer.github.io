@@ -125,6 +125,9 @@ html,body {
   gap: 20px;
 
 }
+.download-pixel-button {
+  mix-width: 200px;
+}
 .colored-bg-pixel {
   background: #89c2d9;
 }

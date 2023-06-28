@@ -91,12 +91,6 @@ export default class Canvas extends Component {
     }
   }
 
-  //-------------------------------------------------------------------------
-  handleFill() {
-    // At first scan edges for zero values and flood empty regions with mark value 3. 
-    // Then walk through inner place. If you find zero cell, 
-    // flood-fill from this cell with value 2.
-  }
 
   //-------------------------------------------------------------------------
   handleAddRects(coords) {
@@ -110,27 +104,48 @@ export default class Canvas extends Component {
         shapes.push(shape);
       }
     }
-    this.props.addManyShapes(shapes);
+    this.props.addShapeTemp(shapes);
   }
 
   //-------------------------------------------------------------------------
-  drawShape(e) {
-    let shape =  {'shape' : 'bg',color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
-    const {x, y} = this.getCursorPosition(this.ref.current, e)
-    if (this.props.selectedPen === 'pen') {
-      shape = {'shape' : 'rect', size: this.props.brushSize, x, y, color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
-    }
-    this.props.addShape(shape);
-  }
+  // drawShape(e) {
+  //   let shape =  {'shape' : 'bg',color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+  //   const {x, y} = this.getCursorPosition(this.ref.current, e)
+  //   if (this.props.selectedPen === 'pen') {
+  //     shape = {'shape' : 'rect', size: this.props.brushSize, x, y, color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+  //   } else if (this.props.selectedPen === 'fill') {
+  //     shape = {'shape' : 'rect', size: this.props.brushSize, x, y, color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+  //   }
+  //   this.props.addShapeTemp([shape]);
+  // }
 
   //-------------------------------------------------------------------------
   handleDragUnClick(e) {
     e.preventDefault();
+    let shape =  {'shape' : 'bg',color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+    const {x, y} = this.getCursorPosition(this.ref.current, e)
+    if (this.props.selectedPen === 'pen') {
+      shape = {'shape' : 'rect', size: this.props.brushSize, x, y, color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+    } else if (this.props.selectedPen === 'fill') {
+      shape = {'shape' : 'rect', size: this.props.brushSize, x, y, color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+    }
     this.setState({clicked: false});
-    this.props.handleUpdateDrawnOrder();
+    this.props.handleUpdateDrawnOrder(shape);
   }
   handleDragClick() {
     this.setState({clicked: true});
+  }
+  handleClick(e) {
+    // console.log('HANLDE CLICK')
+    // let shape =  {'shape' : 'bg',color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+    // const {x, y} = this.getCursorPosition(this.ref.current, e)
+    // if (this.props.selectedPen === 'pen') {
+    //   shape = {'shape' : 'rect', size: this.props.brushSize, x, y, color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+    // } else if (this.props.selectedPen === 'fill') {
+    //   shape = {'shape' : 'rect', size: this.props.brushSize, x, y, color: this.props.chosenColor, 'drawnOrder': this.props.drawnOrder};
+    // }
+    // this.setState({clicked: false});
+    // this.props.handleUpdateDrawnOrder(shape);
   }
 
   //-------------------------------------------------------------------------
@@ -145,16 +160,22 @@ export default class Canvas extends Component {
     ctx.clearRect(0, 0, this.props.widthNum, this.props.heightNum);
     if (ctx) {
       for (let i = 0; i < this.props.shapes.length; i += 1) {
-        const shape = this.props.shapes[i];
-        if (shape['shape'] === 'bg') {
-          rect({ctx, 'brushSize': shape['size'], x: 1, y: 1, width: this.props.widthNum, height: this.props.heightNum, color: shape['color'], gridSize: this.props.gridSize});
+        const shapeInner = this.props.shapes[i]['shape'];
+        for (let k = 0; k < shapeInner.length; k += 1) {
+          const shape = shapeInner[k];
+          if (shape['shape']['shape'] === 'bg') {
+            rect({ctx, 'brushSize': shape['size'], x: 1, y: 1, width: this.props.widthNum, height: this.props.heightNum, color: shape['shape']['color'], gridSize: this.props.gridSize});
+          }
         }
       }
       grid({ctx, width: this.props.widthNum, height: this.props.heightNum, gridSize: this.props.gridSize});
       for (let i = 0; i < this.props.shapes.length; i += 1) {
-        const shape = this.props.shapes[i];
-        if (shape['shape'] === 'rect') {
-          rect({ctx, 'brushSize': shape['size'], x: shape['x'], y: shape['y'], width: this.props.gridSize, height: this.props.gridSize, color: shape['color'], gridSize: this.props.gridSize});
+        const shapeInner = this.props.shapes[i]['shape'];
+        for (let k = 0; k < shapeInner.length; k += 1) {
+          const shape = shapeInner[k];
+          if (shape['shape'] === 'rect') {
+            rect({ctx, 'brushSize': shape['size'], x: shape['x'], y: shape['y'], width: this.props.gridSize, height: this.props.gridSize, color: shape['color'], gridSize: this.props.gridSize});
+          }
         }
       }
     }
@@ -166,7 +187,7 @@ export default class Canvas extends Component {
     this.drawAllCanvas(this.state.seconds);
     return (
         <canvas 
-          onClick={this.drawShape.bind(this)} 
+          onClick={this.handleClick.bind(this)} 
           onMouseDown={this.handleDragClick.bind(this)}
           onMouseUp={this.handleDragUnClick.bind(this)}
           onMouseMove={this.handleDrag.bind(this)} 

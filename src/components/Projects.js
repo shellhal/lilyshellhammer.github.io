@@ -14,16 +14,13 @@ class Projects extends React.Component {
       <div className="project-wrapper">
       <Container>
         <div className="portfolio-wrapper">
-      	<h2>Projects</h2>
+      	<h2>Projects  (This page is under construction)</h2>
       	<div className="flex-container">
 	      	<div className="project-square" onClick={this.redirectPixel.bind(this)}>
 	      		<h4>Pixel Project</h4>
 	      		<div className="project-img"><img src={pixelprev} alt={''} className="pixel-preview"/></div>
 	     	</div>
-	     	<div className="project-square" onClick={this.redirectPixel.bind(this)}>
-	      		<h4>Pixel Project</h4>
-	      		<div className="project-img"><img src={pixelprev} alt={''} className="pixel-preview"/></div>
-	     	</div>
+	     	
      	</div>
      	</div>
      </Container>

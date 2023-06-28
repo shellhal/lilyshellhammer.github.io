@@ -23,6 +23,9 @@ class ToolBarLeft extends React.Component {
   selectSquare() {
   	this.props.setPen('square');
   }
+  selectFill() {
+    this.props.setPen('fill');
+  }
 
   //-------------------------------------------------------------------------
   setBrushSize(event) {
@@ -55,7 +58,8 @@ class ToolBarLeft extends React.Component {
   //-------------------------------------------------------------------------
   render() {
   	const penCn = (this.props.selectedPen === 'pen') ? 'pen selected': 'pen';
-  	const bgCn = (this.props.selectedPen === 'bg') ? 'bg selected': 'bg';
+    const fillCn = (this.props.selectedPen === 'fill') ? 'fill selected': 'fill';
+    const bgCn = (this.props.selectedPen === 'bg') ? 'bg selected': 'bg';
   	const gs = this.props.gridSize;
   	const gs2 = this.props.gridSize*3;
   	const gs3 =  this.props.gridSize*5;
@@ -81,10 +85,7 @@ class ToolBarLeft extends React.Component {
   	const undoButton = (this.props.drawnOrder === 0) ? <button onClick={this.undo.bind(this)} disabled className={"pixel-button disabled"}>Undo</button>: <button onClick={this.undo.bind(this)} className={"pixel-button "}>Undo</button>;
   	const redoButton = (this.props.redoQueue.length === 0) ? <button onClick={this.redo.bind(this)} disabled className={"pixel-button disabled"}>Redo</button>: <button onClick={this.redo.bind(this)} className={"pixel-button "}>Redo</button>;
   	
-  	const history  = [];
-  	// for (let i = this.props.drawnOrder - 1; i >= 1; i -= 1) {
-  	// 	history.push(<div>{this.props.history[i][0]} <span className="history-time">{this.props.history[i][1]}</span></div>);
-  	// }
+  	
     return (
     	<div className="tools-pixel ">
     		<div className="chosen-brush-wrapper">
@@ -101,6 +102,7 @@ class ToolBarLeft extends React.Component {
     		<div className="pixel-button-set">
     			<button onClick={this.selectPen.bind(this)} className={" pixel-button " + penCn}>Pen</button>
     			<button onClick={this.selectBg.bind(this)} className={" pixel-button " + bgCn}>Background</button>
+          <button onClick={this.selectFill.bind(this)} className={" pixel-button " + fillCn}>Fill</button>
     		</div>
     		<div className="my-hr"></div>
     		<div className="pixel-button-set">
@@ -124,10 +126,7 @@ class ToolBarLeft extends React.Component {
     			{redoButton}
     			<button onClick={this.clear.bind(this)} className="pixel-button ">Clear</button>
     		</div>
-    		<div className="my-hr"></div>
-    		<div className="pixel-button-set history-section">
-    			{history}
-    		</div>
+    		
     	</div>
     );
   }
