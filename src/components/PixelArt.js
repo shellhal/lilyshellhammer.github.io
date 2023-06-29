@@ -66,7 +66,7 @@ class PixelArt extends React.Component {
 
   //-------------------------------------------------------------------------
   isValid(grid, width, height, x, y, prevC, newC) {
-    if (x < 0 || x >= width || y < 0 || y >= height || grid[x][y] != prevC
+    if (x < 0 || x >= width || y < 0 || y >= height || grid[x][y] !== prevC
        || grid[x][y] === newC)
         return false;
     return true;
@@ -262,7 +262,7 @@ class PixelArt extends React.Component {
     }
 
     const newShapes = this.addNewOrAppend(this.state.shapes, shape, this.state.drawnOrder);
-    const now = this.getNow();
+    // const now = this.getNow();
 
     // const condition = (this.state.drawnOrder > 1); ? this.checkRepeatClick(now, lastHistoryVal, this.state.drawnOrder) : false;
     if ((this.state.selectedPen === 'pen') || (this.state.selectedPen === 'bg')) {

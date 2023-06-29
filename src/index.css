@@ -85,6 +85,28 @@ html,body {
 }
 
 
+/* --------------    mockups page   ---- */
+/* --------------------------------------- */
+.prev-next-carousel {
+  background: white;
+  border: none;
+  font-size: 20px;
+  margin: 10px;
+  flex-grow: 1;
+  max-width: 150px;
+}
+.outer-carousel {
+  display: flex;
+  justify-content: space-around;
+}
+.carousel-indiv-img-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 4;
+}
+.image-mockups-carousel {
+  max-height: 80vh;
+}
 /* --------------    Slider   ---- */
 /* --------------------------------------- */
 .myslider {
@@ -183,8 +205,19 @@ html,body {
 .chosen-brush {
   margin: auto;
 }
-.pixel-preview {
+.pixel-preview, .longturn-preview, .barter-preview {
   width: 23vw;
+}
+.barter-preview {
+  width: 20vw;
+}
+.project-subtitle {
+  margin-bottom: 5px;
+  color: grey;
+  font-size: small;
+}
+.no-hover-underline:hover {
+  text-decoration: none !important;
 }
 .history-section {
   overflow-x: scroll;

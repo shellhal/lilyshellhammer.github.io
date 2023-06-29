@@ -8,12 +8,13 @@ import ContactModal from './components/ContactModal';
 import Projects from './components/Projects';
 import AboutPage from './components/AboutPage';
 import PixelArt from './components/PixelArt';
+import MockupPage from './components/MockupPage';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: 'pixel',
+      content: 'main',
       width: 0,
       height: 0,
       modalOpen: false,
@@ -39,6 +40,8 @@ class App extends React.Component {
       return <Resume />
     } else if (this.state.content === 'pixel') {
       return <PixelArt />
+    } else if (this.state.content === 'mockups') {
+      return <MockupPage />
     } else if (this.state.content === 'projects') {
       return <Projects changeContent={this.changeContent.bind(this)}/>
     } else {
