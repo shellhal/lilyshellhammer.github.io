@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Badge } from 'reactstrap';
-import Title from './Title';
-import '../../node_modules/react-vis/dist/style.css';
+import Title from './../Basics/Title';
+import '../../../node_modules/react-vis/dist/style.css';
 import {
   XYPlot,
   XAxis,

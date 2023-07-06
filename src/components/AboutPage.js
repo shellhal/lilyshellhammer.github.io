@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Container } from 'reactstrap';
-import Title from './Title';
+import Title from './Basics/Title';
 import my_face from '../img/my_face.png';
 import penrose from '../img/penrose1.png';
 import onceUpon from '../img/onceUponAnAlgorithm.png';
@@ -36,22 +36,16 @@ class AboutPage extends Component {
       'PostGres': {years: 5, places: ['Marinus']},
       'Airflow': {years: 4, places: ['Marinus']},
       'Docker': {years: 1, places: ['Marinus']},
-      'Headless Browsers': {years: 2, places: ['Marinus']},
       'Confluence': {years: 5, places: ['Marinus']},
       'Web Scrapers': {years: 2, places: ['Marinus']},
       'AWS': {years: 2, places: ['Marinus']},
       'Jira': {years: 5, places: ['Marinus']},
       'Bootstrap': {years: 6, places: ['OSU', 'Marinus']},
-      'Vue.js': {years: 1, places: ['Personal Project']}
+      'Vue.js': {years: 1, places: ['Personal Project']},
+      'Headless Browsers': {years: 2, places: ['Marinus']},
     };
   }
 
-  changeContentProjects() {
-    this.props.changeContent('projects');
-  }
-  changeContentResume() {
-    this.props.changeContent('resume');
-  }
   toggleCMU() {
     this.setState({
       cmuDotTitle: 'Carnie Mellon',
@@ -135,8 +129,8 @@ class AboutPage extends Component {
                   <img src={my_face} alt={''} className="my-face"/>
                 </div>
                 <div className="my-6-wrapper about-text-wrapper">
-                  <p>I am a Senior Software Engineer working at the Pittsburgh based company, <a className="my-a" href="https://www.marinusanalytics.com/">Marinus Analytics</a>, a company focused on helping law enforcement find victims of sex trafficking using AI and Machine Learning tools. </p>
-                  <p>I graduated Oregon State University with a B.S. in Computer Science, focusing in Computer Graphics and Visualization</p>
+                  <p>I am a Senior Software Engineer working at the Pittsburgh based company, <a className="my-a" href="https://www.marinusanalytics.com/">Marinus Analytics</a>, a company focused on helping law enforcement find victims of sex trafficking using AI and Machine Learning tools.</p>
+                  <p>I graduated Oregon State University with a B.S. in Computer Science, focusing in Computer Graphics and Visualization.</p>
                   <p>I have worked in 3 research labs and in 2018 attended Carnegie Mellon's <a className="my-a" href="https://www.cmu.edu/scs/s3d/reuse/Research/index.html">Research Experience for Undergrads</a> where I worked in the <a className="my-a" href="https://penrose.cs.cmu.edu/">Penrose</a> lab researching and implementing optimal mathematics diagram layouts in a 2D space.</p>
                 </div>
             </div>
@@ -152,10 +146,13 @@ class AboutPage extends Component {
       <div>
           <h3 className="about-section-title right-title">Senior Software Engineer at Marinus Analtyics</h3>
       </div>
-      <div className="my-3-6-wrapper">
-        <div className="my-6-wrapper">
+      <div>
+        <div className="marinus-work-firstpart">
           <h5 className="marinus-work-subtitle">Engineering and Coding</h5>
           <p>I have been developing the full stack of Marinus' flagship tool, TrafficJam, for 5 years. Most of my work consists of designing and coding new features, fixing bugs, maintaining our SimSearch feature, and updating the security, functionality, and style of TrafficJam. I independently created and maintain the following pages on the site: Advanced Analytics Dashboard, Potential Juveniles Gallery, Map Search Page, Image Classification Gallery, and Site Analytics Monitoring.</p>
+        </div>
+      <div className="my-3-6-wrapper work-wrapper">
+        <div className="my-6-wrapper">
           <h5 className="marinus-work-subtitle">Architecture and Design</h5>
           <p>My current work is focused on re-designing TrafficJam's front end and converting the code to react. My main goals in this re-design are to increase reusabililty, readibility, and functionality. If the new code is not understandable and extensible, I haven't done my job right.</p>
           <h5 className="marinus-work-subtitle">Leadership and Collaboration</h5>
@@ -165,32 +162,23 @@ class AboutPage extends Component {
           <img src={marinusSite} alt={''} className="marinus-site"/>
         </div>
       </div>
+      </div>
     </div>
 
     
     <div className="scroll-bg bg-scroll-2">
         <h3 className="about-section-title">Technical Skills 
-          <div 
-            onMouseEnter={this.toggleMarinus.bind(this)}
-            onMouseLeave={this.toggleDotsOff.bind(this)} 
-            className="dot dot-medium marinus-dot"></div>
-          <div className="dot-title">{this.state.marinusDotTitle}</div>
-          <div 
-            onMouseEnter={this.toggleOSU.bind(this)}
-            onMouseLeave={this.toggleDotsOff.bind(this)} 
-            className="dot dot-medium osu-dot"></div>
-          <div className="dot-title">{this.state.osuDotTitle}</div>
-          <div 
-            onMouseEnter={this.toggleCMU.bind(this)}
-            onMouseLeave={this.toggleDotsOff.bind(this)} 
-            className="dot dot-medium cmu-dot"></div>
-          <div className="dot-title">{this.state.cmuDotTitle}</div>
-          <div 
-            onMouseEnter={this.toggleProject.bind(this)}
-            onMouseLeave={this.toggleDotsOff.bind(this)} 
-            className="dot dot-medium project-dot"></div>
-          <div className="dot-title">{this.state.projectDotTitle}</div>
         </h3>
+        <div className="dots-container">
+          <div className="dot dot-medium marinus-dot"></div>
+          <div className="dot-title marinus-color">Marinus</div>
+          <div className="dot dot-medium osu-dot"></div>
+          <div className="dot-title osu-color">Oregon State</div>
+          <div className="dot dot-medium cmu-dot"></div>
+          <div className="dot-title cmu-color">Carnegie Mellon</div>
+          <div className="dot dot-medium project-dot"></div>
+          <div className="dot-title project-color">Projects</div>
+        </div>
         <div className="skills-container">
           {skills}
         </div>
@@ -227,7 +215,9 @@ class AboutPage extends Component {
                 <p>Developed experimental curriculum for the Introduction to Computer Science (160) course for two different pedagogies.
                   Researching the effects effects of functional vs imperative programming and activity-based learning vs code-based learning.</p>
                 <p className="publication">Parham-Mocello, J., Ernst, S., Erwig, M., <span className="pub-my-name">Shellhammer, L.</span>, and Dominguez, E. Story Programming: Explaining Computer Science Before Coding. ACM Symp. on Computer Science Education, 379-385, 2019. 
-                <a className="my-a" href="https://dl.acm.org/doi/10.1145/3287324.3287397">https://dl.acm.org/doi/10.1145/3287324.3287397</a>  <a className="my-a"href="https://web.engr.oregonstate.edu/~erwig/papers/DoesStoryProgrammingPrepare_SIGCSE20.pdf">Alternative Link</a></p>
+                  <a className="my-a" href="https://dl.acm.org/doi/10.1145/3287324.3287397">https://dl.acm.org/doi/10.1145/3287324.3287397</a> 
+                  <a className="my-a"href="https://web.engr.oregonstate.edu/~erwig/papers/DoesStoryProgrammingPrepare_SIGCSE20.pdf">Alternative Link</a>
+                </p>
                 
               </div>
             </div>   
@@ -263,8 +253,8 @@ class AboutPage extends Component {
       <div className="fixed-bg bg-5">
         <h3 className="about-section-title ">Check out my resume and personal code projects:</h3>
         <div className="flex-container justify-around in-site-links-wrapper">
-          <a className="hidden-link" href="#"><div className="in-site-links resume-link" onClick={this.changeContentResume.bind(this)}>Resume</div></a>
-          <a className="hidden-link" href="#"><div className="in-site-links projects-link" onClick={this.changeContentProjects.bind(this)}>Projects</div></a>
+          <a className="hidden-link" onClick={() => this.props.changeContent('resume')}><div className="my-btn in-site-links " >Resume</div></a>
+          <a className="hidden-link" onClick={() => this.props.changeContent('projects')}><div className="my-btn in-site-links ">Projects</div></a>
         </div>
       </div>
 
@@ -275,50 +265,3 @@ class AboutPage extends Component {
 }
 
 export default AboutPage;
-
-/*
-toggleLanguagesPanel() {
-  this.setState({showPanel: 'languages'});
-}
-
-toggleArtPanel() {
-  this.setState({showPanel: 'art'});
-}
-
-toggleSkillPanel() {
-  this.setState({showPanel: 'lastSkill'});
-}
-
-togglePanelOff() {
-  this.setState({showPanel: ''});
-}
-<div className="fixed-bg bg-5">
-  <h3 className="about-section-title hidden">Other Skills</h3>
-    <div className="accordion-wrapper">
-      <div className="outer-accordion languages-panel">
-          <div className="title-accordion languages">Languages</div>
-          <div className={languagesPanelCN}>
-            <div>Spanish - ILR Level 4: Full professional proficiency. Awarded the Oregon Seal of Biliteracy in 2014.</div>
-            <div>German - ILR Level 2: Limited working proficiency</div>
-          </div>
-      </div>
-      <div 
-        className="outer-accordion art-panel">
-          <div className="title-accordion art">Art and Graphic Design</div>
-          <div className={artPanelCN}>
-            <img src={beerplace} alt={''} className="beerplace-art"/>
-            <img src={dataday} alt={''} className="dataday-art"/>
-          </div>
-      </div>
-      <div 
-          className="outer-accordion last-skill-panel hidden">
-          <div className="title-accordion last-skill">Other</div>
-          <div className={lastSkillPanelCN}>
-            <p>Thing</p>
-          </div>
-      </div>
-    </div>
- </div>
-     const lastSkillPanelCN = "grow last-skill-section inner-accordion";
-    const artPanelCN =  "grow art-section inner-accordion";
-    const languagesPanelCN =  "grow languages-section inner-accordion";*/

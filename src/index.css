@@ -5,6 +5,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -15,7 +16,9 @@ code {
 
 html,body {
   height: 100%;
+/*  background: blue;*/
 }
+
 .my-hr {
   width: 100%;
   height: 2px;
@@ -42,6 +45,9 @@ html,body {
 
 .hidden-link {
   color: black !important;
+}
+.hidden-link:hover {
+  text-decoration: none;
 }
 .justify-around {
   justify-content: space-around;
@@ -107,7 +113,7 @@ html,body {
 .image-mockups-carousel {
   max-height: 80vh;
 }
-/* --------------    Slider   ---- */
+/* --------------    Slider   ----------- */
 /* --------------------------------------- */
 .myslider {
   min-width: 80%;
@@ -140,6 +146,10 @@ html,body {
 
 /* --------------    Pixel Art Page   ---- */
 /* --------------------------------------- */
+.pixel-too-small {
+  display: none;
+  min-height: 90vh;
+}
 .flex-container-center {
 /*  display: flex;*/
   justify-content: center;
@@ -151,7 +161,7 @@ html,body {
   mix-width: 200px;
 }
 .colored-bg-pixel {
-  background: #89c2d9;
+  background: pink;
 }
 .canvas-wrapper {
   width: 580px;
@@ -181,6 +191,7 @@ html,body {
 
 .pixel-art-page {
   padding: 30px;
+  background: pink;
   margin: auto;
 }
 .pixel-art-title {
@@ -232,12 +243,7 @@ html,body {
 .color-box {
   border: 1px solid white;
 }
-.chosen-brush-title {
 
-}
-.chosen-brush-wrapper {
-
-}
 .undo-button-wrapper {
   margin: auto;
 }
@@ -260,9 +266,6 @@ html,body {
 .pixel-button.btn-primary {
   background-color: #329ec9;
 }
-.pixel-button-set {
-}
-
 .clear-modal {
   margin-top:40vh !important;
 }
@@ -271,15 +274,30 @@ html,body {
 /* --------------    Project Page   -------- */
 /* --------------------------------------- */
 .project-square {
+  display: inline-block;
   margin: 20px;
+/*  min-width: 250px;*/
+/*  width: 25vw;*/
 }
 .project-img:hover {
   text-shadow: 0 0 8px rgba(79, 211, 255, 0.8);
   box-shadow: 0 4px 8px 0 rgba(79, 211, 255, 0.8), 0 6px 20px rgba(79, 211, 255, 0.8);
 }
 .project-wrapper {
-  height: 89vh;
+  min-height: 100vh;
+  height: 100%;
 }
+.project-flex-wrapper {
+  width: 100%;
+}
+.image-mockups-carousel-caption {
+  margin:10px;
+  margin-top: 20px;
+  color: grey;
+  font-size: 18px;
+  word-wrap: break-word;
+}
+
 /* --------------    About Page   -------- */
 /* --------------------------------------- */
 .beerplace-art, .dataday-art {
@@ -297,57 +315,12 @@ html,body {
   color: #008CBA;
 }
 
-.languages {
-  background-color: #fcb75d;
-  border: 1px solid #fcb75d;
-}
-.languages-section {
-  border: 1px solid #fcb75d;
-}
-
-.art {
-  background-color: #83c172;
-  border: 1px solid #83c172;
-}
-.art-section {
-  border: 1px solid #83c172;
-}
-
-
-.last-skill {
-  background-color: #FAB061;
-  border: 1px solid #FAB061;
-}
-.last-skill-section {
-  border: 1px solid #FAB061;
-}
-
-.outer-accordion {
-  margin: auto;
-  font-size: 25px;
-}
-
-
-.inner-accordion {
-  background-color: white;
-  padding: 20px;
-  font-size: 15px;
-  margin: auto;
-}
-/*
-.inner-accordion.hidden {
-  max-height: 0px;
-  transition:height max-height 0.5s;
-  -webkit-transition:max-height 0.5s;
-}*/
 .in-site-links {
-  min-width: 40vw;
-  max-width: 40vw;
-  color: white;
+  min-width: 37vw;
+  max-width: 37vw;
   padding: 10px 5px;
-  background: white;
 /*  border: 2px solid grey;*/
-border-radius: 20px;
+  border-radius: 30px;
   margin: auto;
   text-align: center;
   font-size: 25px;
@@ -379,8 +352,8 @@ border-radius: 20px;
 }
 
 .skills-container {
-  display: flex;
-  align-content: flex-start;
+  width: 100%;
+/*  align-content: flex-start;*/
   gap: 10px;
   flex-wrap: wrap;
   padding: 5px 20px;
@@ -388,10 +361,10 @@ border-radius: 20px;
 .skill-wrapper {
   font-size: 15px;
   padding:4px;
-  flex-grow:1;
-  flex-basis: 25px;
-  min-width: 110px;
-  max-width: 110px;
+  display: inline-block;
+  margin: 5px;
+  min-width: 120px;
+  max-width: 150px;
   background: white;
   border-radius: 7px;
 }
@@ -406,36 +379,54 @@ border-radius: 20px;
 .dot {
   flex-grow:1;
   max-width: 12px;
-  margin-right: 0px;
+  margin-right: 2px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
 }
 .dot-medium {
   margin-top: 5px;
+  margin-bottom: 0px;
   margin-left:10px;
-  width: 20px;
-  height: 20px;
-  max-width: 20px;
-  max-height: 20px;
+  width: 18px;
+  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
 }
 .dot-title {
   font-size: 18px;
-  margin-top:5px;
+  margin-left: 3px;
   transition: width 0.5s ease-out;
   -webkit-transition:width 0.5s ease-out;
 }
 .marinus-dot {
   background-color: #1de2b8;
 }
+.marinus-color {
+  color: #1de2b8;
+}
 .osu-dot {
   background-color: #ff8d42;
+}
+.dots-container {
+  font-size: 15px;
+  margin: 10px;
+  display: flex;
+}
+.osu-color {
+  color: #ed782a;
 }
 .cmu-dot {
   background-color: #ea2a2a;
 }
+.cmu-color {
+  color: #ea2a2a;
+}
 .project-dot {
   background-color: #1473e0;
+}
+.project-color {
+  color: #1473e0;
 }
 .header-icon {
   width:20px;
@@ -483,7 +474,7 @@ border-radius: 20px;
 
 }
 .bg-scroll-2 {
-  background-color: #64a3ea;
+  background-color: #79b1f2;
 }
 
 .bg-2 { 
@@ -497,7 +488,7 @@ border-radius: 20px;
 
 
 .bg-3 {
-  background-color: #f49f5a;
+  background-color: #f7ac6f;
 }
 
 .bg-4 { 
@@ -521,9 +512,7 @@ border-radius: 20px;
 .bullet-start {
   font-weight: bold;
 }
-.bullet-end {
 
-}
 .ta-li {
   margin: 10px;
   font-size: 18px;
@@ -583,13 +572,22 @@ border-radius: 20px;
 .publication {
   margin-left: 20px;
   padding-left: 10px;
+  word-wrap:break-word;
   font-size: 15px;
 /*  font-weight: bold;*/
   border-left: 2px solid grey;
 }
 .marinus-site {
+  display: block;
+/*  max-width: 500px;*/
   max-width: 300px;
+  max-height: 250px;
   width: 100%;
+}
+.marinus-work-firstpart {
+  margin: 10px;
+  margin-top: 15px;
+  margin-bottom: 0px;
 }
 .my-face {
   background-image: url(./img/my_face.png);
@@ -610,12 +608,15 @@ border-radius: 20px;
 }
 .my-3-wrapper {
   flex-grow: 1;
-  flex-basis: 25px;
   margin: 10px;
+  display: flex;
+  justify-content: space-around;
+  min-width: 20vw;
 }
 .my-6-wrapper {
-  flex-grow: 3;
-  flex-basis: 25px;
+  flex-grow: 4;
+  padding: 0px 10px;
+/*  flex-basis: 25px;*/
   margin: 10px;
 }
 .face-wrapper {
@@ -623,23 +624,15 @@ border-radius: 20px;
   max-width: 250px;
 }
 
-@media only screen and (max-width: 550px) {
-  .my-face {
-    max-width: 200px;
-    margin-top: 20px;
-  }
-  .my-3-wrapper {
-  }
 
-  .my-3-6-wrapper {
-    margin-top: 20px;
-    display: block;
-  }
-}
 .footer {
   background-color: #222;
   color: white;
   padding: 10px;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  position: sticky;
 }
 
 .main-inner-wrapper {
@@ -695,3 +688,96 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 
+.project-subtitle {
+  display: none;
+}
+/* --------------- Mobile ------------- */
+/* ------------------------------------ */
+@media only screen and (max-width: 990px) {
+  .my-face {
+    max-width: 250px;
+    max-height: 250px;
+    margin: 20px;
+  }
+}
+
+
+@media only screen and (max-width: 670px) {
+  .my-face {
+/*    max-width: 200px;*/
+    margin: 20px;
+  }
+  .my-3-wrapper {
+    justify-content: space-around;
+  }
+
+  .my-3-6-wrapper {
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .face-wrapper {
+    margin: auto;
+  }
+  .skill-wrapper {
+    font-size: 12px;
+    min-width: 90px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .project-subtitle {
+    display: block;
+    color: grey;
+  }
+  .longturn-title, .pixel-title {
+    color: grey;
+  }
+  .pixel-preview, .longturn-preview {
+    opacity: 0.7;
+    box-shadow: none;
+  }
+  .pixel-preview:hover, .longturn-preview:hover{
+    opacity: 0.5;
+  }
+  .pixel-preview, .longturn-preview, .barter-preview {
+    width: 60vw;
+  }
+  .penrose-graph {
+    width: 200px;
+  }
+  .once-upon {
+    width: 210px;
+  }
+  .seqan {
+    width: 210px;
+  }
+  .penrose-graph, .once-upon, .seqan {
+    margin-left: 0px;
+  }
+  
+}
+
+
+@media only screen and (max-width: 999px) {
+  .pixel-too-small {
+    display: block;
+    width: 100%;
+  }
+  .pixel-too-small-text {
+    font-size: 20px;
+    margin:30px;
+  }
+  .pixel-art-page {
+    display: none;
+  }
+  .pixel-example {
+    margin: auto;
+    max-width: 400px;
+    display: block;
+    padding: 30px;
+  }
+  .colored-bg-pixel {
+    background: white;
+  }
+}

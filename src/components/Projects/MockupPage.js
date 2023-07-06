@@ -1,23 +1,23 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 
-import Title from './Title';
-import add_item from '../img/barter_app/add_item.png';
-import item_full_view from '../img/barter_app/item_full_view.png';
-import pay_for_item from '../img/barter_app/pay_for_item.png';
-import barter_item from '../img/barter_app/barter_item.png';
-import liked_items from '../img/barter_app/liked_items.png';
-import lilys_market_board from '../img/barter_app/lilys_market_board.png';
-import filter_marketplace from '../img/barter_app/filter_marketplace.png';
-import marketplace_boxes from '../img/barter_app/marketplace_boxes.png';
-import stats from '../img/barter_app/stats.png';
-import friends from '../img/barter_app/friends.png';
-import marketplace_list from '../img/barter_app/marketplace_list.png';
-import swap_item from '../img/barter_app/swap_item.png';
-import item_expanded_boxes from '../img/barter_app/item_expanded_boxes.png';
-import message_service from '../img/barter_app/message_service.png';
-import user_profile from '../img/barter_app/user_profile.png';
-import item_expanded_list from '../img/barter_app/item_expanded_list.png';
+import Title from './../Basics/Title';
+import add_item from '../../img/barter_app/add_item.png';
+import item_full_view from '../../img/barter_app/item_full_view.png';
+import pay_for_item from '../../img/barter_app/pay_for_item.png';
+import barter_item from '../../img/barter_app/barter_item.png';
+import liked_items from '../../img/barter_app/liked_items.png';
+import lilys_market_board from '../../img/barter_app/lilys_market_board.png';
+import filter_marketplace from '../../img/barter_app/filter_marketplace.png';
+import marketplace_boxes from '../../img/barter_app/marketplace_boxes.png';
+import stats from '../../img/barter_app/stats.png';
+import friends from '../../img/barter_app/friends.png';
+import marketplace_list from '../../img/barter_app/marketplace_list.png';
+import swap_item from '../../img/barter_app/swap_item.png';
+import item_expanded_boxes from '../../img/barter_app/item_expanded_boxes.png';
+import message_service from '../../img/barter_app/message_service.png';
+import user_profile from '../../img/barter_app/user_profile.png';
+import item_expanded_list from '../../img/barter_app/item_expanded_list.png';
 
 class MockupPage extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class MockupPage extends React.Component {
       {
         src: filter_marketplace,
         altText: 'Filter Marketplace',
-        caption: 'Filter the marketplace by type of purchase or ..'
+        caption: 'Filter the marketplace by type of purchase, distance, type, etc.'
       },
       {
         src: item_full_view,

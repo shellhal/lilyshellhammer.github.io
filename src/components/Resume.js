@@ -17,8 +17,8 @@ export default class Resume extends Component {
   }
 
   render() {
-    //<a href="./src/docs/LilyShellhammerResume.pdf" download><button className="my-btn">Download Resume as PDF</button></a>
-          
+    // <a href="/src/docs/LilyShellhammerResume.pdf" download><button className="my-btn">Download Resume as PDF</button></a>
+            
     const viewText = this.state.moreWork ? 'View Less Work' : 'View More Work';
     return (
       <Container>

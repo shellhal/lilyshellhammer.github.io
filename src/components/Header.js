@@ -8,7 +8,6 @@ import {
   NavLink,
   NavItem,
 } from 'reactstrap';
-
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import linkedIn from '../img/linkedin-icon.png'
 import github from '../img/github-icon.png'
@@ -24,24 +23,7 @@ class Header extends React.Component {
     };
 
   }
-  redirectResume() {
-    this.props.changeContent('resume');
-  }
-  redirectProjects() {
-    this.props.changeContent('projects');
-  }
-  redirectContact() {
-    this.props.changeContent('contact');
-  }
-  redirectMain() {
-    this.props.changeContent('main');
-  }
-  redirectAbout() {
-    this.props.changeContent('about');
-  }
-  redirectLinkedin() {
-    window.location = 'https://www.linkedin.com/in/lily-shellhammer/';
-  }
+
 
   toggle() {
     this.setState({ isOpen: !this.state.isOpen });
@@ -60,22 +42,22 @@ class Header extends React.Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink onClick={ this.redirectAbout.bind(this) }>Home</NavLink>
+            <NavLink onClick={() => this.props.changeContent('about')}>Home</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={ this.redirectResume.bind(this) }>Resume</NavLink>
+            <NavLink onClick={() => this.props.changeContent('resume')}>Resume</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={this.redirectProjects.bind(this) }>Projects</NavLink>
+            <NavLink onClick={() => this.props.changeContent('projects')}>Projects</NavLink>
           </NavItem>
           <NavItem>
             <NavLink onClick={this.toggleModal.bind(this) }>Contact</NavLink>
           </NavItem>
            <NavItem>
-            <NavLink href="https://www.linkedin.com/in/lily-shellhammer/" target="_blank" ><img src={linkedIn} alt={''} className="header-icon linkedin"/></NavLink>
+            <NavLink href="https://www.linkedin.com/in/lily-shellhammer/" target="_blank" ><img src={linkedIn} alt={'LinkedIn Icon'} className="header-icon linkedin"/></NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="https://github.com/shellhal" target="_blank" ><img src={github} alt={''} className="header-icon github"/></NavLink>
+            <NavLink href="https://github.com/shellhal" target="_blank" ><img src={github} alt={'Github Icon'} className="header-icon github"/></NavLink>
           </NavItem>
           </Nav>
         </Collapse>

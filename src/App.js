@@ -1,14 +1,17 @@
 import React from 'react';
 
+// import ReactDOM from "react-dom";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import './App.css';
-import Header from './components/Header';
-// import Main from './components/Main';
 import Resume from './components/Resume';
+import Header from './components/Header';
 import ContactModal from './components/ContactModal';
 import Projects from './components/Projects';
 import AboutPage from './components/AboutPage';
-import PixelArt from './components/PixelArt';
-import MockupPage from './components/MockupPage';
+import PixelArt from './components/Projects/PixelArt/PixelArt';
+import MockupPage from './components/Projects/MockupPage';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -55,7 +58,7 @@ class App extends React.Component {
     const mainCN = (this.state.content === 'pixel') ? "colored-bg-pixel" : "";
     return (
       <main className={mainCN}>
-        <header className="App-header">
+        <header className="app-header">
           <Header
             closeModal={this.closeModal.bind(this)}
             toggle={this.toggle.bind(this)}

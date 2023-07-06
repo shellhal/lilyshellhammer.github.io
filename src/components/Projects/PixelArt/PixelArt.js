@@ -3,7 +3,8 @@ import { Container } from 'reactstrap';
 // import Title from './Title';
 import Canvas from './Canvas';
 import ToolBarLeft from './ToolBarLeft';
-import ToolBarRight from './ToolBarRight';
+// import ToolBarRight from './ToolBarRight';
+import pixelArt from './../../../img/pixel-example.png';
 import {Modal, ModalBody, ModalFooter } from 'reactstrap';
 
 class PixelArt extends React.Component {
@@ -378,6 +379,7 @@ class PixelArt extends React.Component {
         style={{'backgroundColor': color, 'minHeight': gs, 'minWidth': gs, 'height': gs, 'width': gs}}></div>
     });
     return (
+      <div>
       <Container className="pixel-art-page">
         <div className="wrapper full-page">
           <h2 className="pixel-art-title">Pixel Art App</h2>
@@ -418,17 +420,7 @@ class PixelArt extends React.Component {
                 gridSize={this.state.gridSize }/>
             </div>
             <div>
-              <ToolBarRight
-                drawnOrder={this.state.drawnOrder}
-                history={this.state.history}
-                url={this.state.downloadURL}
-                clear={this.clear.bind(this)}
-                setSize={this.setSize.bind(this)}
-                brushSize={this.state.brushSize} 
-                selectedPen={this.state.selectedPen}
-                setPen={this.setPen.bind(this)}
-                undo={this.undo.bind(this)}
-                chosenColor={this.state.chosenColor} />
+              
             </div>
           </div>
           <div className=" pixel-color-picker-wrapper flex-container-center">
@@ -451,8 +443,27 @@ class PixelArt extends React.Component {
           </ModalFooter>
         </Modal>
       </Container>
+      
+        <div className="pixel-too-small">
+          <div className="pixel-too-small-text">You must use a larger browser window to view and use this page to create pixel drawings.</div>
+          <img src={pixelArt} alt={'Example of art created with pixel app'} className="pixel-example"/>
+        </div>
+        
+      </div>
+      
     );
   }
 }
 
 export default PixelArt;
+// <ToolBarRight
+//                 drawnOrder={this.state.drawnOrder}
+//                 history={this.state.history}
+//                 url={this.state.downloadURL}
+//                 clear={this.clear.bind(this)}
+//                 setSize={this.setSize.bind(this)}
+//                 brushSize={this.state.brushSize} 
+//                 selectedPen={this.state.selectedPen}
+//                 setPen={this.setPen.bind(this)}
+//                 undo={this.undo.bind(this)}
+//                 chosenColor={this.state.chosenColor} />

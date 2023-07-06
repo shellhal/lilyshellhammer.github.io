@@ -1,5 +1,5 @@
 import React from 'react';
-import MyReactSlider from './MyReactSlider';
+import MyReactSlider from './../../Basics/MyReactSlider';
 
 class ToolBarLeft extends React.Component {
   constructor(props) {

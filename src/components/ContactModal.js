@@ -58,7 +58,7 @@ class ContactModal extends React.Component {
                   className={this.state.emailClassName}
                   onMouseEnter={this.emailEnter.bind(this)}>
                   <div className='inner-content-buttons'>
-                  <div><img src={email} alt={''} className="header-icon contact-modal-icon linkedin black"/></div>
+                  <div><img src={email} alt={'Email Icon'} className="header-icon contact-modal-icon linkedin black"/></div>
                    <div>{ this.state.email }</div>
                   </div>
                 </div>
@@ -71,7 +71,7 @@ class ContactModal extends React.Component {
                   className={this.state.linkedinClassName}
                   onMouseEnter={this.linkedinEnter.bind(this)}>
                   <div className='inner-content-buttons'>
-                    <div><img src={linkedIn} alt={''} className="header-icon contact-modal-icon linkedin black"/></div>
+                    <div><img src={linkedIn} alt={'LinkedIn Icon'} className="header-icon contact-modal-icon linkedin black"/></div>
                     <div>{ this.state.linkedin }</div>
                   </div>
                 </div>
@@ -84,7 +84,7 @@ class ContactModal extends React.Component {
                   className={this.state.githubClassName}
                   onMouseEnter={this.githubEnter.bind(this)}>
                   <div className='inner-content-buttons'>
-                    <div><img src={github} alt={''} className="header-icon contact-modal-icon linkedin black"/></div>
+                    <div><img src={github} alt={'Github Icon'} className="header-icon contact-modal-icon linkedin black"/></div>
                     <div>{ this.state.github }</div>
                   </div>
                 </div>
